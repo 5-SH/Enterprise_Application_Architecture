@@ -1,4 +1,4 @@
-package basicpattern;
+package basic_pattern;
 
 public class TestMoney {
   public static void main(String[] args) {

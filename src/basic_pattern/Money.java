@@ -1,4 +1,4 @@
-package basicpattern;
+package basic_pattern;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -45,6 +45,10 @@ public class Money {
   }
 
   public static Money dollars(double amount) {
+    return new Money(amount, Currency.getInstance(Locale.US));
+  }
+
+  public static Money dollars(BigDecimal amount) {
     return new Money(amount, Currency.getInstance(Locale.US));
   }
 
