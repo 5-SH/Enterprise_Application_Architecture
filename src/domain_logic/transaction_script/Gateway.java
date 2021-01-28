@@ -1,5 +1,7 @@
 package domain_logic.transaction_script;
 
+import basic_pattern.Money;
+
 import java.sql.*;
 import java.util.Properties;
 
@@ -33,4 +35,27 @@ public class Gateway {
     "SELECT amount " +
       "From revenueRecognitions " +
       "WHERE contract = ? AND recognizedOn <= ?";
+
+  public ResultSet findContract(long contractID) throws SQLException {
+    PreparedStatement stmt = db.prepareStatement(findContractStatement);
+    stmt.setLong(1, contractID);
+    ResultSet result = stmt.executeQuery();
+    return result;
+  }
+
+  private static final String findContractStatement =
+    "SELECT * " +
+      "FROM contracts c, products p " +
+      "WHERE c.ID = ? AND c.product = p.ID";
+
+  public void insertRecognition(long contractID, Money amount, MfDate asOf) throws SQLException {
+    PreparedStatement stmt = db.prepareStatement(insertRecognitionStatement);
+    stmt.setLong(1, contractID);
+    stmt.setBigDecimal(2, amount.amount());
+    stmt.setDate(3, asOf.toSqlDate());
+    stmt.executeUpdate();
+  }
+
+  private static final String insertRecognitionStatement =
+    "INSERT INTO revenueRecognitions VALUES (?, ?, ?)";
 }

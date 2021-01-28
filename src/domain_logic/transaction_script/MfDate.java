@@ -20,7 +20,7 @@ public class MfDate implements Comparable
   }
 
   public MfDate(int year, int month, int day) {
-    initialize (new GregorianCalendar(year, month - 1, day));
+    initialize(new GregorianCalendar(year, month - 1, day));
   }
 
   private void initialize (GregorianCalendar arg) {
@@ -47,7 +47,10 @@ public class MfDate implements Comparable
   }
 
   // TODO: toSqlDate 확인
-  public java.sql.Date toSqlDate() { return java.sql.Date.valueOf(new Date().toString()); }
+  public java.sql.Date toSqlDate() {
+    _formatter.applyPattern("yyyy-MM-dd");
+    return  java.sql.Date.valueOf(_formatter.format(getTime()));
+  }
 
   public MfDate addDays(int arg) {
     return new MfDate(new GregorianCalendar(getYear(), getMonth(), getDayOfMonth() + arg));

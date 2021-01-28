@@ -26,8 +26,8 @@ public class Money {
   }
 
   public Money(BigDecimal amount, Currency currency) {
-    this.amount = amount.longValue() * centFactor();
     this.currency = currency;
+    this.amount = amount.longValue() * centFactor();
   }
 
   private static final int[] cents = new int[] {1, 10, 100, 1000};
