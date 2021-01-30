@@ -51,6 +51,20 @@ public abstract class AbstractMapper {
     return result;
   }
 
+  // 비어있는 객체로 작업
+  protected DomainObjectEL load2(ResultSet rs) throws SQLException {
+    Long id = new Long(rs.getLong(1));
+    if (loadedMap.containsKey(id)) return (DomainObjectEL) loadedMap.get(id);
+    DomainObjectEL result = createDomainObject();
+    result.setId(id);
+    loadedMap.put(id, result);
+    doLoad(result, rs);
+    return result;
+  }
+
+  abstract protected DomainObjectEL createDomainObject();
+  abstract protected void doLoad(DomainObjectEL obj, ResultSet rs) throws SQLException;
+
   // 공용 검색기 메서드를 제공해 반복적인 코드 작성 줄이기
   public List findMany(StatementSource source) throws SQLException {
     PreparedStatement stmt = db.prepareStatement(source.sql());

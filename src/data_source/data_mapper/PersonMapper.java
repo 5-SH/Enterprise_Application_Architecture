@@ -43,6 +43,7 @@ public class PersonMapper extends AbstractMapper {
   // 공용 메서드를 제공해 반복적인 코드 작성 줄이기
   static class FindByLastname implements StatementSource {
     private String lastname;
+
     public FindByLastname(String lastname) {
       this.lastname = lastname;
     }
@@ -57,7 +58,7 @@ public class PersonMapper extends AbstractMapper {
 
     @Override
     public Object[] parameters() {
-      Object[] result = { lastname };
+      Object[] result = {lastname};
       return result;
     }
   }
@@ -103,4 +104,19 @@ public class PersonMapper extends AbstractMapper {
     stmt.setString(3, subject.getFirstname());
     stmt.setInt(4, subject.getNumberOfDependents());
   }
+
+  // 비어있는 객체로 작업
+  @Override
+  protected DomainObjectEL createDomainObject() {
+    return new PersonEL();
+  }
+
+  @Override
+  protected void doLoad(DomainObjectEL obj, ResultSet rs) throws SQLException {
+    PersonEL person = (PersonEL) obj;
+    person.dbLoadLastname(rs.getString(2));
+    person.setFirstname(rs.getString(3));
+    person.setNumberOfDependents(rs.getInt(4));
+  }
 }
+
