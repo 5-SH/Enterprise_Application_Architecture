@@ -1,6 +1,6 @@
 package domain_logic.transaction_script;
 
-import basic_pattern.Money;
+import basic_pattern.money.Money;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

@@ -1,6 +1,6 @@
-package basic_pattern;
+package basic_pattern.money;
 
-public class TestMoney {
+public class Tester {
   public static void main(String[] args) {
     long[] allocation = { 3, 7 };
     Money[] result = Money.dollars(0.05).allocate(allocation);

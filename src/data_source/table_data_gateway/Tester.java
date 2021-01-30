@@ -2,7 +2,7 @@ package data_source.table_data_gateway;
 
 import java.sql.ResultSet;
 
-public class PersonGatewayTest {
+public class Tester {
   public static void main(String[] args) throws Exception {
     PersonGateway personGateway = new PersonGateway();
     personGateway.Insert("오", "승호", 1);

@@ -1,8 +1,8 @@
 package domain_logic.transaction_script;
 
-import basic_pattern.Money;
+import basic_pattern.money.Money;
 
-public class TransactionScriptTest {
+public class Tester {
   public static void main(String[] args) throws Exception {
     Gateway gateway = new Gateway();
     RecognitionService recognitionService = new RecognitionService(gateway);

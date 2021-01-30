@@ -1,4 +1,4 @@
-package basic_pattern;
+package basic_pattern.money;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
