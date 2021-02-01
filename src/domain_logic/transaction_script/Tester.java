@@ -1,6 +1,6 @@
 package domain_logic.transaction_script;
 
-import basic_pattern.money.Money;
+import basic.money.Money;
 
 public class Tester {
   public static void main(String[] args) throws Exception {

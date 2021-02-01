@@ -1,6 +1,6 @@
 package domain_logic.domain_model;
 
-import basic_pattern.money.Money;
+import basic.money.Money;
 
 public class ThreeWayRecognitionStrategy extends RecognitionStrategy {
   private int firstRecognitionOffset;

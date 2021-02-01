@@ -21,7 +21,7 @@ public class PersonGateway {
   }
 
   public ResultSet FindAll() throws SQLException {
-    String sql = "select * from person";
+    String sql = "SELECT * FROM person";
     PreparedStatement stmt = db.prepareStatement(sql);
     ResultSet result = stmt.executeQuery();
     return result;

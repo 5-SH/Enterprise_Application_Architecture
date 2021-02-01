@@ -1,4 +1,4 @@
-package basic_pattern.money;
+package basic.money;
 
 public class Tester {
   public static void main(String[] args) {
