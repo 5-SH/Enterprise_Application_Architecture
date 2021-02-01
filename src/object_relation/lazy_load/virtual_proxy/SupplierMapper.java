@@ -6,8 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SupplierMapper {
-
-  protected DomainObject doLoad(Long id, ResultSet rs) throws SQLException {
+  public DomainObject doLoad(Long id, ResultSet rs) throws SQLException {
     Long idArg = rs.getLong(1);
     String nameArg = rs.getString(2);
     SupplierVL result = new SupplierVL(id, nameArg);
