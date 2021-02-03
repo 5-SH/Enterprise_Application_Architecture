@@ -1,7 +1,6 @@
 package object_relation.lazy_load.virtual_proxy;
 
 import object_relation.lazy_load.lazy_initialize.Product;
-import object_relation.lazy_load.lazy_initialize.Supplier;
 
 import java.sql.*;
 import java.util.List;

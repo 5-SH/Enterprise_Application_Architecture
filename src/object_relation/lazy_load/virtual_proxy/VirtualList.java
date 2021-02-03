@@ -23,7 +23,7 @@ public class VirtualList implements List {
     return getSource().size();
   }
 
-  public boolean isEmpty() {
+    public boolean isEmpty() {
     return getSource().isEmpty();
   }
 
