@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Mapper {
-  Map<Long, DomainObject> loadedMap = new HashMap<>();
-  Connection db;
+  private Map<Long, DomainObject> loadedMap = new HashMap<>();
+  private Connection db;
 
   public void setConnection(Connection db) {
     this.db = db;
@@ -52,4 +52,8 @@ public abstract class Mapper {
   }
 
   protected abstract void doLoadLine(ResultSet rs, DomainObject obj);
+
+  public Connection getDb() {
+    return db;
+  }
 }

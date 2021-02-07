@@ -1,9 +1,6 @@
 package object_relation.lazy_load.virtual_proxy;
 
 import data_source.data_mapper.DomainObject;
-import object_relation.lazy_load.lazy_initialize.ProductGateway;
-
-import java.sql.SQLException;
 import java.util.List;
 
 // virtual proxy

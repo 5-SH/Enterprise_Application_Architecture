@@ -3,9 +3,9 @@ package object_relation.lazy_load.ghost;
 import java.util.List;
 
 public class Employee extends DomainObject {
-  String name;
-  Department department;
-  List timeRecords;
+  private String name;
+  private Department department;
+  private List<TimeRecord> timeRecords;
 
   public Employee(Long key) {
     super(key);
@@ -35,7 +35,7 @@ public class Employee extends DomainObject {
     this.department = department;
   }
 
-  public List getTimeRecords() {
+  public List<TimeRecord> getTimeRecords() {
     load();
     return timeRecords;
   }

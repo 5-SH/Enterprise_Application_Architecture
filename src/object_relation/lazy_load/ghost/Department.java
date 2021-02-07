@@ -7,11 +7,17 @@ public class Department extends DomainObject {
     super(key);
   }
 
+  protected void load() {
+    if (isGhost()) DataSource.load(this);
+  }
+
   public String getName() {
+    load();
     return name;
   }
 
   public void setName(String name) {
+    load();
     this.name = name;
   }
 }

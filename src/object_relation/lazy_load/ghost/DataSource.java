@@ -30,11 +30,14 @@ public class DataSource {
       EmployeeMapper employeeMapper = new EmployeeMapper();
       employeeMapper.setConnection(db);
       DepartmentMapper departmentMapper = new DepartmentMapper();
-      employeeMapper.setConnection(db);
+      departmentMapper.setConnection(db);
+      TimeRecordMapper timeRecordMapper = new TimeRecordMapper();
+      timeRecordMapper.setConnection(db);
 
       MapperRegistry mapperRegistry = new MapperRegistry();
       mapperRegistry.setMapper("object_relation.lazy_load.ghost.Employee", employeeMapper);
       mapperRegistry.setMapper("object_relation.lazy_load.ghost.Department", departmentMapper);
+      mapperRegistry.setMapper("object_relation.lazy_load.ghost.TimeRecord", timeRecordMapper);
 
       instance = mapperRegistry;
     } catch(ClassNotFoundException | SQLException e){
