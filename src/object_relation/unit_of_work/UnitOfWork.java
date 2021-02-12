@@ -1,5 +1,6 @@
 package object_relation.unit_of_work;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,20 +60,32 @@ public class UnitOfWork {
   }
 
   private void insertNew() {
-    for (DomainObject obj : newObjects) {
-      MapperRegistry.getMapper(obj.getClass().getName()).insert(obj);
+    try {
+      for (DomainObject obj : newObjects) {
+        MapperRegistry.getMapper(obj.getClass().getName()).insert(obj);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
   }
 
   private void updateDirty() {
-    for (DomainObject obj : newObjects) {
-      MapperRegistry.getMapper(obj.getClass().getName()).update(obj);
+    try {
+      for (DomainObject obj : dirtyObjects) {
+        MapperRegistry.getMapper(obj.getClass().getName()).update(obj);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
   }
 
   private void deleteRemoved() {
-    for (DomainObject obj : newObjects) {
-      MapperRegistry.getMapper(obj.getClass().getName()).delete(obj);
+    try {
+      for (DomainObject obj : removedObjects) {
+        MapperRegistry.getMapper(obj.getClass().getName()).delete(obj);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
   }
 }
