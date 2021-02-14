@@ -1,4 +1,4 @@
-package basic.registry.singleton;
+package basic.registry;
 
 public class DomainObject {
   private Long id;

@@ -1,5 +1,7 @@
 package basic.registry.singleton;
 
+import basic.registry.PersonFinder;
+
 public class Registry {
   private static Registry soleInstance = new Registry();
   protected PersonFinder personFinder = new PersonFinder();

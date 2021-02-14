@@ -1,5 +1,8 @@
 package basic.registry.singleton;
 
+import basic.registry.Person;
+import basic.registry.PersonFinder;
+
 public class PersonFinderStub extends PersonFinder {
   public Person find(Long id) {
     if (id == 1) {

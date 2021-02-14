@@ -1,5 +1,8 @@
 package basic.registry.singleton;
 
+import basic.registry.Person;
+import basic.registry.PersonFinder;
+
 public class Tester {
   public static void main(String[] args) {
     Registry.initializeStub();

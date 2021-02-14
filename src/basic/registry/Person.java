@@ -1,4 +1,4 @@
-package basic.registry.singleton;
+package basic.registry;
 
 public class Person extends DomainObject {
   private String lastname;
@@ -36,5 +36,14 @@ public class Person extends DomainObject {
 
   public void setFirstname(String firstname) {
     this.firstname = firstname;
+  }
+
+  @Override
+  public String toString() {
+    return "Person{" +
+      "lastname='" + lastname + '\'' +
+      ", firstname='" + firstname + '\'' +
+      ", numberOfDependents=" + numberOfDependents +
+      '}';
   }
 }
