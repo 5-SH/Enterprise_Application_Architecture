@@ -2,7 +2,6 @@ package basic.registry.threadlocal;
 
 import basic.registry.Person;
 import basic.registry.PersonFinder;
-import basic.registry.singleton.Registry;
 
 public class Tester {
   public static void main(String[] args) {
