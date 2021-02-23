@@ -43,4 +43,18 @@ public class RevenueRecognition extends TableModule {
     set(recordSet);
     return id;
   }
+
+  public Money recognizedRevenue(Long contractID, MfDate asOf) {
+    Money result = Money.dollars(0);
+    for (Object source : table.keySet()) {
+      Long key = Long.valueOf(source.toString());
+      Map recordSet = get(key);
+
+      if (recordSet.get("contract").equals(contractID)
+        && ((MfDate) recordSet.get("recognizedOn")).before(asOf)) {
+        result = result.add(Money.dollars((BigDecimal) recordSet.get("amount")));
+      }
+    }
+    return result;
+  }
 }

@@ -1,5 +1,7 @@
 package domain_logic.table_module;
 
+import basic.money.Money;
+
 import java.sql.*;
 import java.util.*;
 
@@ -44,7 +46,7 @@ public abstract class TableGateway {
     return result;
   }
 
-  protected abstract String getFindAllStatement();
+  abstract protected String getFindAllStatement();
 
   public ResultSet findRow(Long key) throws SQLException {
     PreparedStatement stmt = db.prepareStatement(getFindRowStatement());
@@ -53,5 +55,13 @@ public abstract class TableGateway {
     return result;
   }
 
-  protected abstract String getFindRowStatement();
+  abstract protected String getFindRowStatement();
+
+  public void insert(Map resultSet) throws SQLException{
+    PreparedStatement stmt = db.prepareStatement(getInsertStatement());
+    doInsert(resultSet, stmt);
+  }
+
+  abstract protected String getInsertStatement();
+  abstract protected void doInsert(Map<String, String> recordSet, PreparedStatement insertStatement) throws SQLException;
 }

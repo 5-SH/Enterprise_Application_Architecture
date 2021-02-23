@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class TableModule {
-  Map table;
+  protected Map table;
 
   public TableModule() {
     this.table = new HashMap<Long, HashMap>();

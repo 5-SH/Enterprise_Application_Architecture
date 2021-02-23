@@ -43,9 +43,16 @@ public class Contract extends TableModule {
 
     if (prod.getProductType(prodID).equals("W")) {
       rr.insert(contractID, amount, getWhenSigned(contractID));
+    } else if (prod.getProductType(prodID).equals("S")) {
+      Money[] allocation = amount.allocate(3);
+      rr.insert(contractID, allocation[0], getWhenSigned(contractID));
+      rr.insert(contractID, allocation[1], getWhenSigned(contractID).addDays(60));
+      rr.insert(contractID, allocation[2], getWhenSigned(contractID).addDays(90));
+    } else if (prod.getProductType(prodID).equals("D")) {
+      Money[] allocation = amount.allocate(3);
+      rr.insert(contractID, allocation[0], getWhenSigned(contractID));
+      rr.insert(contractID, allocation[1], getWhenSigned(contractID).addDays(30));
+      rr.insert(contractID, allocation[2], getWhenSigned(contractID).addDays(60));
     }
   }
-
-
-
 }
