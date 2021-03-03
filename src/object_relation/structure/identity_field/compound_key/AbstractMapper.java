@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public abstract class AbstractMapper {
   abstract protected String findStatementString();
-  protected Map loadedMap = new HashMap();
+  protected Map<Key, Object> loadedMap = new HashMap<Key, Object>();
   protected Connection DB;
 
   public AbstractMapper() {
@@ -26,6 +26,9 @@ public abstract class AbstractMapper {
 
   public DomainObjectWithKey abstractFind(Key key) {
     DomainObjectWithKey result = (DomainObjectWithKey) loadedMap.get(key);
+
+    System.out.println("abstractFind method loadedMap contains?: " + (result != null));
+
     if (result != null) return result;
 
     ResultSet rs = null;
@@ -44,9 +47,25 @@ public abstract class AbstractMapper {
     return result;
   }
 
-  protected abstract DomainObjectWithKey load(ResultSet rs);
-
   protected void loadFindStatement(Key key, PreparedStatement finder) throws SQLException {
     finder.setLong(1, key.longValue());
   }
+
+  protected DomainObjectWithKey load(ResultSet rs) throws SQLException {
+    Key key = createKey(rs);
+
+    System.out.println("load method loadedMap contains?: " + loadedMap.containsKey(key));
+
+    if (loadedMap.containsKey(key)) return (DomainObjectWithKey) loadedMap.get(key);
+    DomainObjectWithKey result = doLoad(key, rs);
+    loadedMap.put(key, result);
+    return result;
+  }
+
+  abstract protected DomainObjectWithKey doLoad(Key key, ResultSet rs) throws SQLException;
+
+  protected Key createKey(ResultSet rs) throws SQLException {
+    return new Key(rs.getLong(1));
+  }
+
 }

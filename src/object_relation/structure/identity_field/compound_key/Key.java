@@ -1,5 +1,7 @@
 package object_relation.structure.identity_field.compound_key;
 
+import java.util.Arrays;
+
 public class Key {
   private Object[] fields;
 
@@ -26,6 +28,12 @@ public class Key {
     checkKeyNotNull(fields);
   }
 
+  @Override
+  public int hashCode() {
+    return Arrays.hashCode(fields);
+  }
+
+  @Override
   public boolean equals(Object obj) {
     if (!(obj instanceof Key)) return false;
     Key otherKey = (Key) obj;
