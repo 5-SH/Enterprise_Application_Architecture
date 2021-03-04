@@ -43,6 +43,9 @@ public class Tester {
     newLineItem3.setAmount(8);
     lineItemMapper.update(newLineItem3);
 
+    // DELETE
+    orderMapper.delete(newOrder);
+    lineItemMapper.delete(newLineItem2);
     for (int i = 0; i < newOrder.getLineItemList().size(); i++) {
       System.out.println(i + 1 + ": " + newOrder.getLineItemList().get(i).toString());
     }

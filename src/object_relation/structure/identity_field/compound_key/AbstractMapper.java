@@ -113,5 +113,20 @@ public abstract class AbstractMapper {
   abstract protected String updateStatementString();
   abstract protected void loadUpdateStatement(DomainObjectWithKey subject, PreparedStatement stmt) throws SQLException;
 
+  public void delete(DomainObjectWithKey subject ) {
+    PreparedStatement stmt = null;
+    try {
+      stmt = DB.prepareStatement(deleteStatementString());
+      loadDeleteStatement(subject, stmt);
+      stmt.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 
+  abstract protected String deleteStatementString();
+
+  protected void loadDeleteStatement(DomainObjectWithKey subject, PreparedStatement stmt) throws SQLException {
+    stmt.setLong(1, subject.getKey().longValue());
+  }
 }

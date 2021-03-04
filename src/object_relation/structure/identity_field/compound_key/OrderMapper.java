@@ -62,4 +62,9 @@ public class OrderMapper extends AbstractMapper {
     stmt.setString(1, order.getCustomer());
     stmt.setLong(2, order.getKey().longValue());
   }
+
+  @Override
+  protected String deleteStatementString() {
+    return "DELETE FROM orders WHERE id = ?";
+  }
 }

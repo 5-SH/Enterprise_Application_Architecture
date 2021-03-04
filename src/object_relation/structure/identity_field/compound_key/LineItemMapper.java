@@ -156,4 +156,14 @@ public class LineItemMapper extends AbstractMapper {
     stmt.setInt(1, li.getAmount());
     stmt.setString(2, li.getProduct());
   }
+
+  @Override
+  protected String deleteStatementString() {
+    return "DELETE FROM line_items WHERE orderid = ? AND seq = ?";
+  }
+
+  protected void loadDeleteStatement(DomainObjectWithKey subject, PreparedStatement stmt) throws SQLException {
+    stmt.setLong(1, orderID(subject.getKey()));
+    stmt.setLong(2, sequenceNumber(subject.getKey()));
+  }
 }
