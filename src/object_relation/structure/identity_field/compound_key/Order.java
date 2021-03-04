@@ -8,9 +8,8 @@ public class Order extends DomainObjectWithKey {
   private String customer;
   private List<LineItem> lineItemList = new ArrayList<LineItem>();;
 
-  public Order(long ID, String customer) {
-    super(new Key(ID));
-    this.ID = ID;
+  public Order(String customer) {
+    super(new Key(-1));
     this.customer = customer;
   }
 
@@ -37,5 +36,10 @@ public class Order extends DomainObjectWithKey {
 
   public String getCustomer() {
     return customer;
+  }
+
+  public void setKey(Key key) {
+    super.setKey(key);
+    this.ID = key.longValue();
   }
 }

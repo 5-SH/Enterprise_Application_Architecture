@@ -20,5 +20,22 @@ public class Tester {
     for (int i = 0; i < order.getLineItemList().size(); i++) {
       System.out.println(i + 1 + ": " + order.getLineItemList().get(i).toString());
     }
+
+    Order newOrder = new Order("주애린");
+    orderMapper.insert(newOrder);
+
+    LineItemMapper lineItemMapper = MapperRegistry.lineItem();
+    LineItem newLineItem1 = new LineItem(100, "노트북");
+    Key key = lineItemMapper.insert(newLineItem1, newOrder);
+
+    LineItem newLineItem2 = new LineItem(80, "태블릿");
+    lineItemMapper.insert(newLineItem2, newOrder);
+
+    LineItem newLineItem3 = new LineItem(10, "무선마우스");
+    lineItemMapper.insert(newLineItem3, newOrder);
+
+    for (int i = 0; i < newOrder.getLineItemList().size(); i++) {
+      System.out.println(i + 1 + ": " + newOrder.getLineItemList().get(i).toString());
+    }
   }
 }

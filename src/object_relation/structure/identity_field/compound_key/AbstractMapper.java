@@ -68,4 +68,34 @@ public abstract class AbstractMapper {
     return new Key(rs.getLong(1));
   }
 
+  public Key insert(DomainObjectWithKey subject) {
+    Key key = null;
+    try {
+      key = performInsert(subject, findNextDatabaseKeyObject());
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return key;
+  }
+
+  abstract protected Key findNextDatabaseKeyObject() throws SQLException;
+
+  protected Key performInsert(DomainObjectWithKey subject, Key key) throws SQLException {
+    subject.setKey(key);
+    PreparedStatement stmt = DB.prepareStatement(insertStatementString());
+    insertKey(subject, stmt);
+    insertData(subject, stmt);
+    stmt.execute();
+    loadedMap.put(subject.getKey(), subject);
+
+    return subject.getKey();
+  }
+
+  abstract protected String insertStatementString();
+
+  protected  void insertKey(DomainObjectWithKey subject, PreparedStatement stmt) throws SQLException {
+    stmt.setLong(1, subject.getKey().longValue());
+  }
+
+  abstract protected void insertData(DomainObjectWithKey subject, PreparedStatement stmt) throws SQLException;
 }

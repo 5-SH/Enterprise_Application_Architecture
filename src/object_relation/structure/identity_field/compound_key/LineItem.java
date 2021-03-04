@@ -24,6 +24,14 @@ public class LineItem extends DomainObjectWithKey {
     this.product = product;
   }
 
+  public LineItem(int amount, String product) {
+    super(new Key(Long.valueOf(-1), Long.valueOf(-1)));
+    this.orderID = Long.valueOf(-1);
+    this.seq = Long.valueOf(-1);
+    this.amount = amount;
+    this.product = product;
+  }
+
   @Override
   public int hashCode() {
     return Objects.hash(orderID, seq);
@@ -50,6 +58,14 @@ public class LineItem extends DomainObjectWithKey {
     return seq;
   }
 
+  public int getAmount() {
+    return amount;
+  }
+
+  public String getProduct() {
+    return product;
+  }
+
   @Override
   public String toString() {
     return "LineItem{" +
@@ -58,5 +74,11 @@ public class LineItem extends DomainObjectWithKey {
       ", amount=" + amount +
       ", product='" + product + '\'' +
       '}';
+  }
+
+  public void setKey(Key key) {
+    super.setKey(key);
+    this.orderID = key.longValue(0);
+    this.seq = key.longValue(1);
   }
 }

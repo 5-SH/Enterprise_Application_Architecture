@@ -3,6 +3,7 @@ package object_relation.structure.identity_field.compound_key;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 
 public class LineItemMapper extends AbstractMapper {
   public LineItem find(long orderID, long seq) {
@@ -79,5 +80,66 @@ public class LineItemMapper extends AbstractMapper {
     DomainObjectWithKey result = doLoad(key, rs, order);
     loadedMap.put(key, result);
     return result;
+  }
+
+  public Key insert(DomainObjectWithKey subject) {
+    throw new UnsupportedOperationException("Must supply an order when inserting a line item");
+  }
+
+  public Key insert(LineItem item, Order order) {
+    Key key = null;
+    try {
+      key = new Key(order.getKey().value(), getNextSequenceNumber(order));
+      key = performInsert(item, key);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    item.setKey(key);
+    order.addLineItem(item);
+    return key;
+  }
+
+  private Long getNextSequenceNumber(Order order) {
+    loadAllLineItemsFor(order);
+    Iterator it = order.getLineItemList().iterator();
+    if (it.hasNext()) {
+      LineItem candidate = (LineItem) it.next();
+
+      while (it.hasNext()) {
+        LineItem thisItem = (LineItem) it.next();
+        if (thisItem.getKey() == null) continue;
+        if (sequenceNumber(thisItem) > sequenceNumber(candidate)) candidate = thisItem;
+      }
+      return Long.valueOf(sequenceNumber(candidate) + 1);
+    } else {
+      return Long.valueOf(1);
+    }
+  }
+
+  private static long sequenceNumber(LineItem li) {
+    return sequenceNumber(li.getKey());
+  }
+
+  @Override
+  protected Key findNextDatabaseKeyObject() throws SQLException {
+    throw new UnsupportedOperationException("Must supply an order when inserting a line item");
+  }
+
+  @Override
+  protected String insertStatementString() {
+    return "INSERT INTO line_items VALUES (?, ?, ?, ?)";
+  }
+
+  @Override
+  protected void insertData(DomainObjectWithKey subject, PreparedStatement stmt) throws SQLException {
+    LineItem item = (LineItem) subject;
+    stmt.setInt(3, item.getAmount());
+    stmt.setString(4, item.getProduct());
+  }
+
+  protected void insertKey(DomainObjectWithKey subject, PreparedStatement stmt) throws SQLException {
+    stmt.setLong(1, orderID(subject.getKey()));
+    stmt.setLong(2, sequenceNumber(subject.getKey()));
   }
 }
