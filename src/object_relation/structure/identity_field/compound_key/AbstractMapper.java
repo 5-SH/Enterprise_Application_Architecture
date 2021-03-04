@@ -98,4 +98,20 @@ public abstract class AbstractMapper {
   }
 
   abstract protected void insertData(DomainObjectWithKey subject, PreparedStatement stmt) throws SQLException;
+
+  public void update(DomainObjectWithKey subject) {
+    PreparedStatement stmt = null;
+    try {
+      stmt = DB.prepareStatement(updateStatementString());
+      loadUpdateStatement(subject, stmt);
+      stmt.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  abstract protected String updateStatementString();
+  abstract protected void loadUpdateStatement(DomainObjectWithKey subject, PreparedStatement stmt) throws SQLException;
+
+
 }

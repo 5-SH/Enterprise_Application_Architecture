@@ -50,4 +50,16 @@ public class OrderMapper extends AbstractMapper {
     rs.next();
     return new Key(new Long(rs.getLong(1) + 1));
   }
+
+  @Override
+  protected String updateStatementString() {
+    return "UPDATE orders SET customer = ? WHERE id = ?";
+  }
+
+  @Override
+  protected void loadUpdateStatement(DomainObjectWithKey subject, PreparedStatement stmt) throws SQLException {
+    Order order = (Order) subject;
+    stmt.setString(1, order.getCustomer());
+    stmt.setLong(2, order.getKey().longValue());
+  }
 }

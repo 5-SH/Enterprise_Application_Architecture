@@ -81,4 +81,12 @@ public class LineItem extends DomainObjectWithKey {
     this.orderID = key.longValue(0);
     this.seq = key.longValue(1);
   }
+
+  public void setAmount(int amount) {
+    this.amount = amount;
+  }
+
+  public void setProduct(String product) {
+    this.product = product;
+  }
 }

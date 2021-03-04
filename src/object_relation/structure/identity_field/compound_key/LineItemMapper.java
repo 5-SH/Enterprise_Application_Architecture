@@ -142,4 +142,18 @@ public class LineItemMapper extends AbstractMapper {
     stmt.setLong(1, orderID(subject.getKey()));
     stmt.setLong(2, sequenceNumber(subject.getKey()));
   }
+
+  @Override
+  protected String updateStatementString() {
+    return "UPDATE line_items SET amount = ?, product = ? WHERE orderId = ? AND seq = ?";
+  }
+
+  @Override
+  protected void loadUpdateStatement(DomainObjectWithKey subject, PreparedStatement stmt) throws SQLException {
+    stmt.setLong(3, orderID(subject.getKey()));
+    stmt.setLong(4, sequenceNumber(subject.getKey()));
+    LineItem li = (LineItem) subject;
+    stmt.setInt(1, li.getAmount());
+    stmt.setString(2, li.getProduct());
+  }
 }

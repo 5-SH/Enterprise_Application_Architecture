@@ -42,4 +42,8 @@ public class Order extends DomainObjectWithKey {
     super.setKey(key);
     this.ID = key.longValue();
   }
+
+  public void setCustomer(String customer) {
+    this.customer = customer;
+  }
 }

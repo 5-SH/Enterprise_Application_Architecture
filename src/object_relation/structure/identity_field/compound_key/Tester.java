@@ -2,6 +2,7 @@ package object_relation.structure.identity_field.compound_key;
 
 public class Tester {
   public static void main(String[] args) {
+    // FIND
     OrderMapper orderMapper = MapperRegistry.order();
     Order order = orderMapper.find(Long.valueOf(1));
 
@@ -21,18 +22,26 @@ public class Tester {
       System.out.println(i + 1 + ": " + order.getLineItemList().get(i).toString());
     }
 
+    // INSERT
     Order newOrder = new Order("주애린");
     orderMapper.insert(newOrder);
 
     LineItemMapper lineItemMapper = MapperRegistry.lineItem();
     LineItem newLineItem1 = new LineItem(100, "노트북");
-    Key key = lineItemMapper.insert(newLineItem1, newOrder);
+    lineItemMapper.insert(newLineItem1, newOrder);
 
     LineItem newLineItem2 = new LineItem(80, "태블릿");
     lineItemMapper.insert(newLineItem2, newOrder);
 
     LineItem newLineItem3 = new LineItem(10, "무선마우스");
     lineItemMapper.insert(newLineItem3, newOrder);
+
+    // UPDATE
+    newOrder.setCustomer("애린주");
+    orderMapper.update(newOrder);
+
+    newLineItem3.setAmount(8);
+    lineItemMapper.update(newLineItem3);
 
     for (int i = 0; i < newOrder.getLineItemList().size(); i++) {
       System.out.println(i + 1 + ": " + newOrder.getLineItemList().get(i).toString());
