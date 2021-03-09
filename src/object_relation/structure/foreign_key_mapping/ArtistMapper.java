@@ -1,5 +1,6 @@
 package object_relation.structure.foreign_key_mapping;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -18,5 +19,19 @@ public class ArtistMapper extends AbstractMapper {
     String name = rs.getString(2);
     Artist artist = new Artist(id, name);
     return artist;
+  }
+
+  @Override
+  public void update(DomainObject arg) {
+    PreparedStatement stmt = null;
+    try {
+      stmt = DB.prepareStatement("UPDATE artists SET name = ? WHERE id = ?");
+      stmt.setLong(2, arg.getId().longValue());
+      Artist artist = (Artist) arg;
+      stmt.setString(1, artist.getName());
+      stmt.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 }

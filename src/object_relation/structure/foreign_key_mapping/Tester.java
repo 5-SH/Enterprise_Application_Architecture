@@ -7,5 +7,15 @@ public class Tester {
 
     Album album = MapperRegistry.album().find(1);
     System.out.println(album.toString());
+
+    // update
+    artist.setName("주애린");
+    MapperRegistry.artist().update(artist);
+    System.out.println(album.toString());
+
+    album.setTitle("무제");
+    MapperRegistry.album().update(album);
+    System.out.println(album.toString());
+
   }
 }

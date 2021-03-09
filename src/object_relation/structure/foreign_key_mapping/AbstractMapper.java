@@ -59,4 +59,6 @@ public abstract class AbstractMapper {
   }
 
   abstract protected DomainObject doLoad(Long id, ResultSet rs) throws SQLException;
+
+  abstract public void update(DomainObject arg);
 }
