@@ -9,11 +9,11 @@ public class Tester {
     System.out.println(album.toString());
 
     // update
-    artist.setName("주애린");
+    artist.setName("오승호");
     MapperRegistry.artist().update(artist);
     System.out.println(album.toString());
 
-    album.setTitle("무제");
+    album.setTitle("new title");
     MapperRegistry.album().update(album);
     System.out.println(album.toString());
 

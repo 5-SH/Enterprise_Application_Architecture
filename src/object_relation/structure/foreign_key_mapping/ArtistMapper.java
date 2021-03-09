@@ -34,4 +34,8 @@ public class ArtistMapper extends AbstractMapper {
       e.printStackTrace();
     }
   }
+
+  public boolean isLoaded(long id) {
+    return loadedMap.containsKey(id);
+  }
 }
