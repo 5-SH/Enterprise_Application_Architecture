@@ -49,4 +49,37 @@ public class PlayerMapper extends AbstractMapper {
     doRegister(id, player);
     return player;
   }
+
+  @Override
+  public void update(DomainObject arg) {
+    PreparedStatement stmt = null;
+    try {
+      stmt = DB.prepareStatement("UPDATE player SET name = ?, teamID = ? WHERE id = ?");
+      stmt.setLong(3, arg.getId().longValue());
+      Player player = (Player) arg;
+      stmt.setString(1, player.getName());
+      stmt.setLong(2, player.getTeamID());
+      stmt.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void update(DomainObject arg, Long teamID) {
+    PreparedStatement stmt = null;
+    try {
+      stmt = DB.prepareStatement("UPDATE player SET name = ?, teamID = ? WHERE id = ?");
+      stmt.setLong(3, arg.getId().longValue());
+      Player player = (Player) arg;
+      stmt.setString(1, player.getName());
+      stmt.setLong(2, teamID);
+      stmt.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void linkTeam(Player player, Long id) {
+      update(player, id);
+  }
 }

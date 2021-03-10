@@ -1,6 +1,7 @@
 package object_relation.structure.foreign_key_mapping.collections_of_references;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Team extends DomainObject {
   private String name;
@@ -20,10 +21,14 @@ public class Team extends DomainObject {
     this.name = name;
   }
 
-  public Player getPlayer(Long id) {
-    int idx = players.indexOf(id);
-    if (idx > -1) {
-      return players.get(idx);
+  public List getPlayers() {
+    return players;
+  }
+
+  public Player getPlayer(long id) {
+    List find = players.stream().filter(p -> p.getId() == id).collect(Collectors.toList());
+    if (find.size() >= 0) {
+      return (Player) find.get(0);
     }
     return null;
   }
@@ -38,6 +43,10 @@ public class Team extends DomainObject {
 
   public void setPlayer(List<Player> players) {
     this.players = players;
+  }
+
+  public void removePlayer(Player player) {
+    players.remove(player);
   }
 
   @Override
