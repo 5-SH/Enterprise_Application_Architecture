@@ -45,7 +45,7 @@ public abstract class AbstractMapper {
 
   protected List loadAll(ResultSet rs) throws SQLException {
     List result = new ArrayList();
-    while(rs.next()) {
+    while (rs.next()) {
       result.add(load(rs));
     }
     return result;

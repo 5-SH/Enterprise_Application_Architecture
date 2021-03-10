@@ -1,6 +1,4 @@
-package object_relation.structure.foreign_key_mapping;
-
-import object_relation.structure.identity_field.compound_key.Key;
+package object_relation.structure.foreign_key_mapping.collections_of_references;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -8,7 +6,7 @@ import java.util.Map;
 import java.util.Properties;
 
 public abstract class AbstractMapper {
-  protected Map loadedMap = new HashMap<Key, Object>();
+  protected Map loadedMap = new HashMap();
   protected Connection DB;
 
   public AbstractMapper() {
@@ -59,6 +57,4 @@ public abstract class AbstractMapper {
   }
 
   abstract protected DomainObject doLoad(Long id, ResultSet rs) throws SQLException;
-
-  abstract public void update(DomainObject arg);
 }

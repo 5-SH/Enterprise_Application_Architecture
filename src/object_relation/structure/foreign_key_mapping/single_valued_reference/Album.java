@@ -1,4 +1,4 @@
-package object_relation.structure.foreign_key_mapping;
+package object_relation.structure.foreign_key_mapping.single_valued_reference;
 
 public class Album extends DomainObject {
   private String title;
