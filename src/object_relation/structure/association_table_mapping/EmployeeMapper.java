@@ -1,5 +1,7 @@
 package object_relation.structure.association_table_mapping;
 
+import object_relation.structure.foreign_key_mapping.single_valued_reference.Artist;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,5 +43,41 @@ public class EmployeeMapper extends AbstractMapper {
     stmt.setLong(1, id);
     ResultSet rs = stmt.executeQuery();
     return rs;
+  }
+
+  @Override
+  protected void save(DomainObject arg) {
+    PreparedStatement stmt = null;
+    try {
+      Employee employee = (Employee) arg;
+      for (Skill s : employee.getSkills()) {
+        stmt = DB.prepareStatement("UPDATE employeeSkill SET employeeID = ? WHERE skillID = ?");
+        stmt.setLong(2, s.getId());
+        stmt.setLong(1, employee.getId());
+        stmt.execute();
+      }
+      saveSkills(employee);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void saveSkills(Employee emp) {
+    deleteSkills(emp);
+    List<Skill> skills = emp.getSkills();
+    for (Skill s : skills) {
+      MapperRegistry.skill().insert(emp.getId(), s.getId());
+    }
+  }
+
+  private void deleteSkills(Employee emp) {
+    PreparedStatement stmt = null;
+    try {
+      stmt = DB.prepareStatement("DELETE FROM employeeSkill WHERE employeeID = ?");
+      stmt.setLong(1, emp.getId().longValue());
+      stmt.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 }

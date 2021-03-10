@@ -2,6 +2,7 @@ package object_relation.structure.association_table_mapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Employee extends DomainObject {
   private String name;
@@ -41,6 +42,14 @@ public class Employee extends DomainObject {
 
   public void setSkills(List<Skill> skills) {
     this.skills = skills;
+  }
+
+  public Skill getSkill(long id) {
+    List find = skills.stream().filter(s -> s.getId() == id).collect(Collectors.toList());
+    if (find.size() >= 0) {
+      return (Skill) find.get(0);
+    }
+    return null;
   }
 
   @Override

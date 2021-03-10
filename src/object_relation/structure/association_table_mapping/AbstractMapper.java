@@ -56,5 +56,11 @@ public abstract class AbstractMapper {
     loadedMap.put(id, result);
   }
 
-  abstract protected DomainObject doLoad(Long id, ResultSet rs) throws SQLException;
+  protected abstract DomainObject doLoad(Long id, ResultSet rs) throws SQLException;
+
+  public void update(DomainObject arg) {
+    save(arg);
+  }
+
+  protected abstract void save(DomainObject arg);
 }
