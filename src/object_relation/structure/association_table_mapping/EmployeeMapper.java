@@ -22,11 +22,33 @@ public class EmployeeMapper extends AbstractMapper {
   protected DomainObject doLoad(Long id, ResultSet rs) throws SQLException {
     String name = rs.getString(2);
     Employee emp = new Employee(id, name);
-    loadSkills(emp);
+//    emp.setSkills(loadSkills(emp));
+    emp.setSkills(newLoadSkills(emp));
     return emp;
   }
 
-  private void loadSkills(Employee emp) throws SQLException {
+  private List newLoadSkills(Employee emp) {
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    List result = new ArrayList();
+    try {
+      stmt = DB.prepareStatement("SELECT s.ID, s.name as skillName " +
+                                  "FROM skill s, employeeSkill es " +
+                                  "WHERE es.employeeID = ? AND s.ID = es.skillID");
+      long employeeID = emp.getId();
+      stmt.setLong(1, employeeID);
+      rs = stmt.executeQuery();
+      while (rs.next()) {
+        Long skillID = new Long(rs.getLong(1));
+        result.add((Skill) MapperRegistry.skill().loadRow(skillID, rs));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+
+  private List loadSkills(Employee emp) throws SQLException {
     ResultSet rs = skillLinkRows(emp.getId());
     List<Skill> skills = new ArrayList<>();
     while (rs.next()) {
@@ -34,7 +56,7 @@ public class EmployeeMapper extends AbstractMapper {
       Skill skill = MapperRegistry.skill().find(skillID);
       skills.add(skill);
     }
-    emp.setSkills(skills);
+    return skills;
   }
 
   private ResultSet skillLinkRows(long id) throws SQLException{

@@ -43,8 +43,16 @@ public abstract class AbstractMapper {
     return result;
   }
 
+  protected DomainObject loadRow(long id, ResultSet rs) throws SQLException {
+    return load(id, rs);
+  }
+
   protected DomainObject load(ResultSet rs) throws SQLException {
     Long id = new Long(rs.getLong(1));
+    return load(id, rs);
+  }
+
+  protected DomainObject load(long id, ResultSet rs) throws SQLException {
     if (loadedMap.containsKey(id)) return (DomainObject) loadedMap.get(id);
     DomainObject result = doLoad(id, rs);
     doRegister(id, result);
