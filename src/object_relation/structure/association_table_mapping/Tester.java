@@ -1,5 +1,7 @@
 package object_relation.structure.association_table_mapping;
 
+import java.util.List;
+
 public class Tester {
   public static void main(String[] args) {
     Employee emp = MapperRegistry.employee().find(1);
@@ -18,5 +20,10 @@ public class Tester {
     emp2.addSkill(updateSkill);
     MapperRegistry.employee().update(emp2);
     System.out.println(emp2.toString());
+
+    List<Employee> empList = MapperRegistry.employee().findAll();
+    for (Employee e : empList) {
+      System.out.println(e);
+    }
   }
 }

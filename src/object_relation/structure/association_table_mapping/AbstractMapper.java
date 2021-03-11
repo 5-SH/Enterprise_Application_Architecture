@@ -1,9 +1,7 @@
 package object_relation.structure.association_table_mapping;
 
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 public abstract class AbstractMapper {
   protected Map loadedMap = new HashMap<>();
@@ -65,6 +63,22 @@ public abstract class AbstractMapper {
   }
 
   protected abstract DomainObject doLoad(Long id, ResultSet rs) throws SQLException;
+
+  protected List findAll(String sql) {
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    List result = new ArrayList();
+    try {
+      stmt = DB.prepareStatement(sql);
+      rs = stmt.executeQuery();
+      while (rs.next()) {
+        result.add(load(rs));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
 
   public void update(DomainObject arg) {
     save(arg);

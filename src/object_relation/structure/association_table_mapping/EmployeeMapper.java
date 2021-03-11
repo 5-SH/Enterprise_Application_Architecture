@@ -13,6 +13,12 @@ public class EmployeeMapper extends AbstractMapper {
     return (Employee) abstractFind(id);
   }
 
+  public List findAll() {
+    return findAll(findAllStatement);
+  }
+
+  private static String findAllStatement = "SELECT id, name FROM employee ORDER BY id";
+
   @Override
   protected String findStatement() {
     return "SELECT id, name FROM employee WHERE id = ?";
