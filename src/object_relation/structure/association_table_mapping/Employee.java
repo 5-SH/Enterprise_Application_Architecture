@@ -8,6 +8,12 @@ public class Employee extends DomainObject {
   private String name;
   private List<Skill> skills;
 
+  public Employee(Long id) {
+    super(id);
+    this.name = null;
+    this.skills = new ArrayList<>();
+  }
+
   public Employee(Long id, String name) {
     super(id);
     this.name = name;

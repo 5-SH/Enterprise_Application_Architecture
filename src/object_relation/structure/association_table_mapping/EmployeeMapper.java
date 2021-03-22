@@ -1,7 +1,5 @@
 package object_relation.structure.association_table_mapping;
 
-import object_relation.structure.foreign_key_mapping.single_valued_reference.Artist;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,11 +27,12 @@ public class EmployeeMapper extends AbstractMapper {
     String name = rs.getString(2);
     Employee emp = new Employee(id, name);
 //    emp.setSkills(loadSkills(emp));
-    emp.setSkills(newLoadSkills(emp));
+    emp.setSkills(loadSkills2(emp));
     return emp;
   }
 
-  private List newLoadSkills(Employee emp) {
+  // 직접 SQL 사용
+  private List loadSkills2(Employee emp) {
     PreparedStatement stmt = null;
     ResultSet rs = null;
     List result = new ArrayList();
