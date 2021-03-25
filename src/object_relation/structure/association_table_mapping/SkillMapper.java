@@ -9,14 +9,20 @@ public class SkillMapper extends AbstractMapper {
     return (Skill) abstractFind(id);
   }
 
+//  @Override
+//  protected String findStatement() {
+//    return "SELECT id, name FROM skill WHERE id = ?";
+//  }
+
   @Override
   protected String findStatement() {
-    return "SELECT id, name FROM skill WHERE id = ?";
+    return "SELECT id, name FROM skill AS skillName WHERE id = ?";
   }
 
   @Override
   protected DomainObject doLoad(Long id, ResultSet rs) throws SQLException {
-    String name = rs.getString(2);
+//    String name = rs.getString(2);
+    String name = rs.getString("skillName");
     Skill result = new Skill(id, name);
     return result;
   }

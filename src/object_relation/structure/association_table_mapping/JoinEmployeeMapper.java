@@ -7,6 +7,33 @@ import java.util.List;
 
 // 여러 직원을 쿼리 하나로 처리
 public class JoinEmployeeMapper extends AbstractMapper {
+  public List findAll() {
+    return findAll(findAllStatement());
+  }
+
+  private String findAllStatement() {
+    return "SELECT " +  "employee.ID, employee.name, " +
+      "es.skillID, es.employeeID, skill.ID skillID, " +
+      "skill.name skillName " +
+      "FROM employee, skill, employeeSkill es " +
+      "WHERE employee.ID = es.employeeID AND skill.ID = es.skillID " +
+      "ORDER BY employee.name";
+  }
+
+  protected List findAll(String sql) {
+    AssociationTableLoader loader = new AssociationTableLoader((JoinEmployeeMapper) this, new SkillAdder());
+    return loader.run(findAllStatement());
+  }
+
+  private static class SkillAdder implements AssociationTableLoader.Adder {
+    @Override
+    public void add(DomainObject host, ResultSet rs) throws SQLException {
+      Employee emp = (Employee) host;
+      Long skillId = new Long(rs.getLong("SkillID"));
+      emp.addSkill((Skill) MapperRegistry.skill().loadRow(skillId, rs));
+    }
+  }
+
   public Employee find(long id) {
     return (Employee) abstractFind(id);
   }
@@ -29,7 +56,7 @@ public class JoinEmployeeMapper extends AbstractMapper {
     return result;
   }
 
-  protected DomainObject loadRow(Long id, ResultSet rs) throws SQLException {
+  protected DomainObject loadRow(long id, ResultSet rs) throws SQLException {
     Employee result = new Employee(id);
     result.setName(rs.getString("name"));
     return result;

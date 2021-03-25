@@ -85,4 +85,16 @@ public abstract class AbstractMapper {
   }
 
   protected abstract void save(DomainObject arg);
+
+  public boolean hasLoaded(Long id) {
+    return loadedMap.containsKey(id);
+  }
+
+  public void putAsLoaded(DomainObject obj) {
+    loadedMap.put (obj.getId(), obj);
+  }
+
+  protected DomainObject lookUp(Long id) {
+    return (DomainObject) loadedMap.get(id);
+  }
 }

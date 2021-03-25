@@ -1,5 +1,6 @@
 package object_relation.structure.association_table_mapping;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class Tester {
@@ -27,7 +28,14 @@ public class Tester {
 //    }
 
     // 여러 직원을 쿼리 하나로 처리
-    Employee emp3 = MapperRegistry.joinEmployee().find(1);
-    System.out.println(emp3);
+//    Employee emp3 = MapperRegistry.joinEmployee().find(1);
+//    System.out.println(emp3);
+
+    List result = MapperRegistry.joinEmployee().findAll();
+    Iterator it = result.iterator();
+    while (it.hasNext()) {
+      Employee emp = (Employee) it.next();
+      System.out.println(emp);
+    }
   }
 }
