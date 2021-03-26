@@ -27,8 +27,6 @@ public class AlbumMapper extends AbstractMapper {
 //  }
 
   // 다중 테이블 검색
-
-
   @Override
   protected String findStatement() {
     return "SELECT a.ID, a.title, a.artistID, r.name " +
