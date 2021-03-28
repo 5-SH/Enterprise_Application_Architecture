@@ -69,6 +69,29 @@ public class ProductOffering {
     return result;
   }
 
+  private final static String updateStatementString = "UPDATE productOffering SET base_cost_amount = ?, base_cost_currency = ? WHERE product = ?";
+
+  public void update() {
+    PreparedStatement stmt = null;
+    try {
+      stmt = Registry.DB().prepareStatement(updateStatementString);
+      stmt.setBigDecimal(1, baseCost.amount());
+      stmt.setString(2, baseCost.currency().getCurrencyCode());
+      stmt.setInt(3, ID.intValue());
+      stmt.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public Money getBaseCost() {
+    return baseCost;
+  }
+
+  public void setBaseCost(Money baseCost) {
+    this.baseCost = baseCost;
+  }
+
   @Override
   public String toString() {
     return "ProductOffering{" +
