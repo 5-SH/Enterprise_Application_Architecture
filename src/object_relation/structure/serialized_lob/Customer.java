@@ -2,6 +2,7 @@ package object_relation.structure.serialized_lob;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -9,7 +10,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,17 +24,23 @@ public class Customer extends DomainObject {
   private String name;
   private List departments = new ArrayList();
 
+  public Customer(Long id, String name) {
+    super(id);
+    this.name = name;
+  }
+
   public Customer(String name, List departments) {
     super(new Long(-1));
     this.name = name;
     this.departments = departments;
   }
 
+
   private Long findNextDatabaseId() {
     PreparedStatement stmt = null;
     Long result = null;
     try {
-      stmt = Registry.DB().prepareStatement("SELECT IFNULL(MAX(id) + 1, 0) AS nextID FROM customers");
+      stmt = Registry.DB().prepareStatement("SELECT IFNULL(MAX(id) + 1, 1) AS nextID FROM customers");
       ResultSet rs = stmt.executeQuery();
       rs.next();
       result = rs.getLong("nextID");
@@ -85,5 +94,58 @@ public class Customer extends DomainObject {
     return root;
   }
 
+  private final static String findStatementString = "SELECT id, name, departments FROM customers WHERE id = ?";
 
+  public static Customer find(Long id) {
+    Customer result = null;
+    try {
+      PreparedStatement stmt = Registry.DB().prepareStatement(findStatementString);
+      stmt.setLong(1, id);
+      ResultSet rs = stmt.executeQuery();
+      rs.next();
+      result = load(rs);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    return result;
+  }
+
+  public static Customer load(ResultSet rs) throws Exception {
+    Long id = new Long(rs.getLong("id"));
+    Customer result = (Customer) Registry.getCustomer(id);
+    if (result != null) return result;
+
+    String name = rs.getString("name");
+    String departmentLob = rs.getString("departments");
+    result = new Customer(id, name);
+    result.readDepartments(readXml(departmentLob));
+
+
+    return result;
+  }
+
+  public static Element readXml(String departmentLob) throws Exception {
+    DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+    DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+    Document doc = docBuilder.parse(new ByteArrayInputStream(departmentLob.getBytes(StandardCharsets.UTF_8)));
+    Element result = (Element) doc.getElementsByTagName("departmentList");
+    return result;
+  }
+
+  public void readDepartments(Element source) {
+    NodeList depList = source.getElementsByTagName("department");
+    for (int i = 0; i < depList.getLength(); i++) {
+      Element element = (Element) depList.item(i);
+      departments.add(Department.readXml(element));
+    }
+  }
+
+  @Override
+  public String toString() {
+    return "Customer{" +
+      "name='" + name + '\'' +
+      ", departments=" + departments +
+      '}';
+  }
 }

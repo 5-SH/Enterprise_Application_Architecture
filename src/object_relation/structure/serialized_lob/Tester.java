@@ -27,8 +27,11 @@ public class Tester {
     departments.add(US);
     departments.add(Europe);
 
-    Customer customer = new Customer("james", departments);
+    Customer customer = new Customer("john", departments);
 //    System.out.println(customer.xmlStringer());
     customer.insert();
+
+    Customer c1 = Customer.find(new Long(3));
+    System.out.print(c1.toString());
   }
 }
