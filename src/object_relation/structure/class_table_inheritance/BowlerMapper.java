@@ -6,23 +6,28 @@ import java.sql.SQLException;
 public class BowlerMapper extends AbstractPlayerMapper {
   public static final String TYPE_CODE = "B";
 
+
+  protected Bowler find(long id) {
+    return (Bowler) abstractFind(id);
+  }
+
   @Override
   protected String findStatement() {
-    return null;
+    return "SELECT id, name, bowling_average, type FROM athlete WHERE id = ?";
+  }
+
+  @Override
+  protected void load(DomainObject obj, ResultSet rs) throws SQLException {
+    super.load(obj, rs);
+    Bowler bowler = (Bowler) obj;
+    String bowlingAverage = rs.getString("bowling_average");
+    bowler.setBowlingAverage(bowlingAverage);
   }
 
   @Override
   protected DomainObject createDomainObject() {
-    return null;
+    return new Bowler();
   }
 
-  @Override
-  protected DomainObject find(long id) throws SQLException {
-    return null;
-  }
 
-  @Override
-  protected void load(DomainObject obj, ResultSet rs) {
-
-  }
 }

@@ -18,8 +18,8 @@ public class CricketerMapper extends AbstractPlayerMapper {
   @Override
   protected void load(DomainObject obj, ResultSet rs) throws SQLException {
     super.load(obj, rs);
-    String battingAverage = rs.getString("batting_average");
     Cricketer cricketer = (Cricketer) obj;
+    String battingAverage = rs.getString("batting_average");
     cricketer.setBattingAverage(battingAverage);
   }
 
