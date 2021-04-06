@@ -1,6 +1,7 @@
 package object_relation.structure.class_table_inheritance;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class FootballerMapper extends AbstractPlayerMapper {
   public static final String TYPE_CODE = "S";
@@ -12,6 +13,11 @@ public class FootballerMapper extends AbstractPlayerMapper {
 
   @Override
   protected DomainObject createDomainObject() {
+    return null;
+  }
+
+  @Override
+  protected DomainObject find(long id) throws SQLException {
     return null;
   }
 

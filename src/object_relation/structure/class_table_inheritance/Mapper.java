@@ -25,19 +25,6 @@ public abstract class Mapper {
 
   abstract protected DomainObject find(long id) throws SQLException;
 
-  protected DomainObject abstractFind(long id) {
-    DomainObject result = null;
-    try {
-      result = (DomainObject) loadedMap.get(id);
-      if (result != null) return result;
-      result = find(id);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-
-    return result;
-  }
-
   protected void load(DomainObject obj, ResultSet rs) throws SQLException {
     try {
       long id = rs.getLong("id");

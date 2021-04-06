@@ -7,30 +7,12 @@ import java.sql.SQLException;
 public abstract class AbstractPlayerMapper extends Mapper {
 
   abstract protected String findStatement();
-
-  @Override
-  protected DomainObject find(long id) {
-    DomainObject result = null;
-    try {
-      ResultSet rs = findRow(id);
-      result = createDomainObject();
-      load(result, rs);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-
-    return result;
-  }
-
   abstract protected DomainObject createDomainObject();
-  protected void load(DomainObject obj, ResultSet rs) throws SQLException {
-    super.load(obj, rs);
-    String name = rs.getString("name");
-    Player player = (Player) obj;
-    player.setName(name);
-  }
 
-  public ResultSet findRow(long id) {
+  protected DomainObject abstractFind(long id) {
+    DomainObject result = (DomainObject) loadedMap.get(id);
+    if (result != null) return result;
+
     PreparedStatement stmt = null;
     ResultSet rs = null;
     try {
@@ -38,9 +20,20 @@ public abstract class AbstractPlayerMapper extends Mapper {
       stmt.setLong(1, id);
       rs = stmt.executeQuery();
       rs.next();
+      result = createDomainObject();
+      load(result, rs);
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return rs;
+    return result;
+  }
+
+  protected void load(DomainObject obj, ResultSet rs) throws SQLException {
+    super.load(obj, rs);
+    Player player = (Player) obj;
+    String name = rs.getString("name");
+    player.setName(name);
+    String type = rs.getString("type");
+    player.setType(type);
   }
 }

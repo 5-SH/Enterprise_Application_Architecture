@@ -15,8 +15,7 @@ public class PlayerMapper extends Mapper {
     this.fmapper = new FootballerMapper();
   }
 
-  @Override
-  protected Player find(long id) {
+  public Player find(long id) {
     Player result = null;
     try {
       ResultSet rs = findRow(id);
@@ -24,10 +23,13 @@ public class PlayerMapper extends Mapper {
       switch (type) {
         case BowlerMapper.TYPE_CODE:
           result = (Player) bmapper.find(id);
+          break;
         case CricketerMapper.TYPE_CODE:
           result = (Player) cmapper.find(id);
+          break;
         case FootballerMapper.TYPE_CODE:
           result = (Player) fmapper.find(id);
+          break;
       }
     } catch (SQLException e) {
       e.printStackTrace();

@@ -12,7 +12,7 @@ public class CricketerMapper extends AbstractPlayerMapper {
 
   @Override
   protected String findStatement() {
-    return "SELECT id, name, batting_average FROM athlete WHERE id = ?";
+    return "SELECT id, name, batting_average, type FROM athlete WHERE id = ?";
   }
 
   @Override
