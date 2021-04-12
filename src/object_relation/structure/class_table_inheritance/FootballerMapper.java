@@ -43,4 +43,9 @@ public class FootballerMapper extends AbstractPlayerMapper {
       e.printStackTrace();
     }
   }
+
+  @Override
+  protected String insertStatement() {
+    return "INSERT INTO athlete (name, club, id, type) VALUES (?, ?, ?, ?)";
+  }
 }

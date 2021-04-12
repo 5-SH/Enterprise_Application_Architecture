@@ -22,5 +22,10 @@ public class Tester {
     c1.setBattingAverage("3.01");
     playerMapper.update(c1);
     System.out.println(c1);
+
+    Bowler b1 = new Bowler(4, "michael", "150");
+    playerMapper.insert(b1);
+//    playerMapper.delete(b1);
+
   }
 }

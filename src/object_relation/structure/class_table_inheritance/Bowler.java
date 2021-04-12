@@ -3,6 +3,17 @@ package object_relation.structure.class_table_inheritance;
 public class Bowler extends Player {
   String bowlingAverage;
 
+  public Bowler() {
+
+  }
+
+  public Bowler(long id, String name, String bowlingAverage) {
+    this.setId(id);
+    this.setName(name);
+    this.setType("B");
+    this.bowlingAverage = bowlingAverage;
+  }
+
   public String getBowlingAverage() {
     return bowlingAverage;
   }

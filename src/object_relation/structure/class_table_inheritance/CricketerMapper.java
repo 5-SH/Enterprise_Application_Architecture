@@ -45,4 +45,9 @@ public class CricketerMapper extends AbstractPlayerMapper {
       e.printStackTrace();
     }
   }
+
+  @Override
+  protected String insertStatement() {
+    return "INSERT INTO athlete (name, batting_average, id, type) VALUES (?, ?, ?, ?)";
+  }
 }

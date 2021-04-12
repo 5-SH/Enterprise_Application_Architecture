@@ -46,4 +46,9 @@ public class BowlerMapper extends AbstractPlayerMapper {
       e.printStackTrace();
     }
   }
+
+  @Override
+  protected String insertStatement() {
+    return "INSERT INTO athlete (name, bowling_average, id, type) VALUES (?, ?, ?, ?)";
+  }
 }

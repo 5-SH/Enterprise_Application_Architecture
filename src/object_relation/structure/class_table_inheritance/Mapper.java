@@ -50,5 +50,16 @@ public abstract class Mapper {
 
   abstract protected void update(DomainObject obj) throws SQLException;
 
-  abstract protected void insert(DomainObject obj) throws SQLException;
+  abstract protected void insert(DomainObject obj);
+
+  protected void delete(DomainObject obj) {
+    PreparedStatement stmt;
+    try {
+      stmt = DB.prepareStatement("DELETE FROM athlete WHERE id = ?");
+      stmt.setLong(1, obj.getId());
+      stmt.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 }
