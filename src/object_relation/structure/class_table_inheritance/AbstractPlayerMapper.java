@@ -36,4 +36,10 @@ public abstract class AbstractPlayerMapper extends Mapper {
     String type = rs.getString("type");
     player.setType(type);
   }
+
+  protected void update(DomainObject obj) {
+    save(obj);
+  }
+
+  protected abstract void save(DomainObject obj);
 }

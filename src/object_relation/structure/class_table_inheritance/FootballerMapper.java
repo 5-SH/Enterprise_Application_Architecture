@@ -1,5 +1,6 @@
 package object_relation.structure.class_table_inheritance;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -26,5 +27,18 @@ public class FootballerMapper extends AbstractPlayerMapper {
   @Override
   protected DomainObject createDomainObject() { return new Footballer(); }
 
-
+  @Override
+  protected void save(DomainObject obj) {
+    PreparedStatement stmt = null;
+    try {
+      Footballer footballer = (Footballer) obj;
+      stmt = DB.prepareStatement("UPDATE athlete SET name = ?, club = ? WHERE id = ?");
+      stmt.setLong(3, footballer.getId());
+      stmt.setString(1, footballer.getName());
+      stmt.setString(2, footballer.getClub());
+      stmt.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 }

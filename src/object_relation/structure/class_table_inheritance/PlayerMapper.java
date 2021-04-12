@@ -38,17 +38,20 @@ public class PlayerMapper extends Mapper {
     return result;
   }
 
-  private ResultSet findRow(long id) {
-    PreparedStatement stmt = null;
-    ResultSet rs = null;
-    try {
-      stmt = DB.prepareStatement("SELECT type FROM athlete WHERE id = ?");
-      stmt.setLong(1, id);
-      rs = stmt.executeQuery();
-      rs.next();
-    } catch (SQLException e) {
-      e.printStackTrace();
+  @Override
+  protected void update(DomainObject obj) {
+    Player player = (Player) obj;
+    String type = player.getType();
+    switch (type) {
+      case BowlerMapper.TYPE_CODE:
+        bmapper.update(obj);
+        break;
+      case CricketerMapper.TYPE_CODE:
+        cmapper.update(obj);
+        break;
+      case FootballerMapper.TYPE_CODE:
+        fmapper.update(obj);
+        break;
     }
-    return rs;
   }
 }

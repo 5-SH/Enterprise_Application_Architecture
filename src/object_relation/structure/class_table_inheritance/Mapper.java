@@ -23,6 +23,20 @@ public abstract class Mapper {
     }
   }
 
+  public ResultSet findRow(long id) {
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    try {
+      stmt = DB.prepareStatement("SELECT type FROM athlete WHERE id = ?");
+      stmt.setLong(1, id);
+      rs = stmt.executeQuery();
+      rs.next();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return rs;
+  }
+
   abstract protected DomainObject find(long id) throws SQLException;
 
   protected void load(DomainObject obj, ResultSet rs) throws SQLException {
@@ -34,4 +48,5 @@ public abstract class Mapper {
     }
   }
 
+  abstract protected void update(DomainObject obj) throws SQLException;
 }

@@ -1,5 +1,6 @@
 package object_relation.structure.class_table_inheritance;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -29,5 +30,18 @@ public class BowlerMapper extends AbstractPlayerMapper {
     return new Bowler();
   }
 
-
+  @Override
+  protected void save(DomainObject obj) {
+    PreparedStatement stmt = null;
+    try {
+      Bowler bowler = (Bowler) obj;
+      stmt = DB.prepareStatement("UPDATE athlete SET name = ?, bowling_average = ? WHERE id = ?");
+      stmt.setLong(3, bowler.getId());
+      stmt.setString(1, bowler.getName());
+      stmt.setString(2, bowler.getBowlingAverage());
+      stmt.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 }
