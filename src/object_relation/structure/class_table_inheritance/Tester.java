@@ -19,7 +19,7 @@ public class Tester {
     System.out.println(p1);
 
     Cricketer c1 = (Cricketer) playerMapper.find(1);
-    c1.setBattingAverage("3.13");
+    c1.setBattingAverage("3.01");
     playerMapper.update(c1);
     System.out.println(c1);
   }

@@ -38,8 +38,20 @@ public abstract class AbstractPlayerMapper extends Mapper {
   }
 
   protected void update(DomainObject obj) {
-    save(obj);
+    try {
+      PreparedStatement stmt = DB.prepareStatement(updateStatement());
+      Player player = (Player) obj;
+      stmt.setLong(3, player.getId());
+      save(obj, stmt);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
-  protected abstract void save(DomainObject obj);
+  protected abstract String updateStatement();
+  protected abstract void save(DomainObject obj, PreparedStatement stmt);
+
+  protected void insert(DomainObject obj) {
+
+  }
 }

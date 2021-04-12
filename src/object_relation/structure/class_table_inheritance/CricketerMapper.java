@@ -30,12 +30,14 @@ public class CricketerMapper extends AbstractPlayerMapper {
   }
 
   @Override
-  protected void save(DomainObject obj) {
-    PreparedStatement stmt = null;
+  protected String updateStatement() {
+    return "UPDATE athlete SET name = ?, batting_average = ? WHERE id = ?";
+  }
+
+  @Override
+  protected void save(DomainObject obj, PreparedStatement stmt) {
     try {
       Cricketer cricketer = (Cricketer) obj;
-      stmt = DB.prepareStatement("UPDATE athlete SET name = ?, batting_average = ? WHERE id = ?");
-      stmt.setLong(3, cricketer.getId());
       stmt.setString(1, cricketer.getName());
       stmt.setString(2, cricketer.getBattingAverage());
       stmt.execute();

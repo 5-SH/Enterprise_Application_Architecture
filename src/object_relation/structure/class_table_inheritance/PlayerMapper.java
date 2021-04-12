@@ -1,6 +1,5 @@
 package object_relation.structure.class_table_inheritance;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -53,5 +52,10 @@ public class PlayerMapper extends Mapper {
         fmapper.update(obj);
         break;
     }
+  }
+
+  @Override
+  protected void insert(DomainObject obj) throws SQLException {
+
   }
 }

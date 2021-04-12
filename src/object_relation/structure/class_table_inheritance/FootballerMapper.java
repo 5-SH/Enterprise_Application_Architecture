@@ -28,12 +28,14 @@ public class FootballerMapper extends AbstractPlayerMapper {
   protected DomainObject createDomainObject() { return new Footballer(); }
 
   @Override
-  protected void save(DomainObject obj) {
-    PreparedStatement stmt = null;
+  protected String updateStatement() {
+    return "UPDATE athlete SET name = ?, club = ? WHERE id = ?";
+  }
+
+  @Override
+  protected void save(DomainObject obj, PreparedStatement stmt) {
     try {
       Footballer footballer = (Footballer) obj;
-      stmt = DB.prepareStatement("UPDATE athlete SET name = ?, club = ? WHERE id = ?");
-      stmt.setLong(3, footballer.getId());
       stmt.setString(1, footballer.getName());
       stmt.setString(2, footballer.getClub());
       stmt.execute();

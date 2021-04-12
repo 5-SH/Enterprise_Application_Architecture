@@ -49,4 +49,6 @@ public abstract class Mapper {
   }
 
   abstract protected void update(DomainObject obj) throws SQLException;
+
+  abstract protected void insert(DomainObject obj) throws SQLException;
 }

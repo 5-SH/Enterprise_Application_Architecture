@@ -31,12 +31,14 @@ public class BowlerMapper extends AbstractPlayerMapper {
   }
 
   @Override
-  protected void save(DomainObject obj) {
-    PreparedStatement stmt = null;
+  protected String updateStatement() {
+    return "UPDATE athlete SET name = ?, bowling_average = ? WHERE id = ?";
+  }
+
+  @Override
+  protected void save(DomainObject obj, PreparedStatement stmt) {
     try {
       Bowler bowler = (Bowler) obj;
-      stmt = DB.prepareStatement("UPDATE athlete SET name = ?, bowling_average = ? WHERE id = ?");
-      stmt.setLong(3, bowler.getId());
       stmt.setString(1, bowler.getName());
       stmt.setString(2, bowler.getBowlingAverage());
       stmt.execute();
