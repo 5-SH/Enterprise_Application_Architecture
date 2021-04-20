@@ -23,43 +23,20 @@ public abstract class Mapper {
     }
   }
 
-  public ResultSet findRow(long id) {
+  abstract protected DomainObject find(long id) throws SQLException;
+
+  public ResultSet findRow(long id, String tablename) {
     PreparedStatement stmt = null;
     ResultSet rs = null;
     try {
-      stmt = DB.prepareStatement("SELECT type FROM athlete WHERE id = ?");
+      stmt = DB.prepareStatement("SELECT * FROM " + tablename + " WHERE id = ?");
       stmt.setLong(1, id);
       rs = stmt.executeQuery();
-      rs.next();
+      if (!rs.next()) return null;
     } catch (SQLException e) {
       e.printStackTrace();
     }
+
     return rs;
-  }
-
-  abstract protected DomainObject find(long id) throws SQLException;
-
-  protected void load(DomainObject obj, ResultSet rs) throws SQLException {
-    try {
-      long id = rs.getLong("id");
-      obj.setId(id);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-
-  abstract protected void update(DomainObject obj) throws SQLException;
-
-  abstract protected void insert(DomainObject obj);
-
-  protected void delete(DomainObject obj) {
-    PreparedStatement stmt;
-    try {
-      stmt = DB.prepareStatement("DELETE FROM athlete WHERE id = ?");
-      stmt.setLong(1, obj.getId());
-      stmt.execute();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
   }
 }

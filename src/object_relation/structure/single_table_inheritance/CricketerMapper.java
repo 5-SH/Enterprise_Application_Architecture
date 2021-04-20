@@ -1,4 +1,4 @@
-package object_relation.structure.class_table_inheritance;
+package object_relation.structure.single_table_inheritance;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
