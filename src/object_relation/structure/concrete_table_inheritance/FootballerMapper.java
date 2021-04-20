@@ -35,4 +35,13 @@ public class FootballerMapper extends AbstractPlayerMapper {
     Footballer footballer = (Footballer) obj;
     stmt.setString(3, footballer.getClub());
   }
+
+  protected void insert(DomainObject obj) {
+    super.insert(obj);
+  }
+
+  @Override
+  protected String insertStatement() {
+    return "INSERT INTO concrete_footballer (name, type, club, id) VALUES (?, ?, ?, ?)";
+  }
 }

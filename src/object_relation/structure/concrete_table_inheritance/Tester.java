@@ -24,5 +24,10 @@ public class Tester {
     c1.setName("june");
     playerMapper.update(c1);
     System.out.println(c1);
+
+    Footballer f1 = new Footballer("hong", "F", "STV");
+    playerMapper.insert(f1);
+    Cricketer c2 = new Cricketer("hong", "C", "2.22");
+    playerMapper.insert(c2);
   }
 }

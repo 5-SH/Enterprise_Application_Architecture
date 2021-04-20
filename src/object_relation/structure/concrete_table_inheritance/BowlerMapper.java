@@ -35,4 +35,13 @@ public class BowlerMapper extends AbstractPlayerMapper {
     Bowler bowler = (Bowler) obj;
     stmt.setString(3, bowler.getBowlingAverage());
   }
+
+  protected void insert(DomainObject obj) {
+    super.insert(obj);
+  }
+
+  @Override
+  protected String insertStatement() {
+    return "INSERT INTO concrete_bowler (name, type, bowling_average, id) VALUES (?, ?, ?, ?)";
+  }
 }

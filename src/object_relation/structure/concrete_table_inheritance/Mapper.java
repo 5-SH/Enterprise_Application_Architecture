@@ -1,5 +1,7 @@
 package object_relation.structure.concrete_table_inheritance;
 
+import object_relation.structure.identity_field.key_table.KeyGenerator;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,4 +43,5 @@ public abstract class Mapper {
   }
 
   abstract protected void update(DomainObject obj) throws SQLException;
+  abstract protected void insert(DomainObject obj) throws SQLException;
 }

@@ -1,8 +1,9 @@
 package object_relation.structure.concrete_table_inheritance;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import object_relation.structure.identity_field.key_table.KeyGenerator;
+
+import java.sql.*;
+import java.util.Properties;
 
 public abstract class AbstractPlayerMapper extends Mapper {
   protected DomainObject abstractFind(long id, String tablename) throws SQLException {
@@ -44,4 +45,35 @@ public abstract class AbstractPlayerMapper extends Mapper {
   }
 
   abstract protected String updateStatement();
+
+  @Override
+  protected void insert(DomainObject obj) {
+    try {
+      PreparedStatement stmt = DB.prepareStatement(insertStatement());
+      KeyGenerator keyGenerator = new KeyGenerator(getNewConn(), "players", 1);
+      stmt.setLong(4, keyGenerator.nextKey());
+      save(obj, stmt);
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private Connection getNewConn() {
+    Connection db = null;
+    try {
+      Class.forName("com.mysql.jdbc.Driver");
+      Properties props = new Properties();
+      props.put("user", "root");
+      props.put("password", "root");
+      props.put("characterEncoding", "UTF-8");
+      String url = "jdbc:mysql://localhost/architecture";
+      db = DriverManager.getConnection(url, props);
+    } catch(ClassNotFoundException | SQLException e){
+      e.printStackTrace();
+    }
+    return db;
+  }
+
+  abstract protected String insertStatement();
 }

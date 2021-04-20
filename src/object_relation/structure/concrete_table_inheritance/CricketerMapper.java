@@ -35,4 +35,13 @@ public class CricketerMapper extends AbstractPlayerMapper {
     Cricketer cricketer = (Cricketer) obj;
     stmt.setString(3, cricketer.getBattingAverage());
   }
+
+  protected void insert(DomainObject obj) {
+    super.insert(obj);
+  }
+
+  @Override
+  protected String insertStatement() {
+    return "INSERT INTO concrete_cricketer (`name`, `type`, `batting_average`, `id`) VALUES (?, ?, ?, ?)";
+  }
 }

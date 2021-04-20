@@ -6,8 +6,7 @@ public class Footballer extends Player {
   public Footballer() {
   }
 
-  public Footballer(long id, String name, String type, String club) {
-    this.setId(id);
+  public Footballer(String name, String type, String club) {
     this.setName(name);
     this.setType(type);
     this.club = club;
