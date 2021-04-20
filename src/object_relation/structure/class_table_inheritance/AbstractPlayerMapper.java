@@ -13,6 +13,8 @@ public abstract class AbstractPlayerMapper extends Mapper {
     if (result != null) return result;
 
     ResultSet rs = findRow(id, tablename);
+    if (rs == null) return null;
+
     result = createDomainObject();
     result.setId(rs.getLong("id"));
     load(result);
