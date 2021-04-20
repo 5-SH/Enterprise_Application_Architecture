@@ -1,5 +1,6 @@
 package object_relation.structure.class_table_inheritance;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -23,5 +24,18 @@ public class FootballerMapper extends AbstractPlayerMapper {
     ResultSet rs = findRow(obj.getId(), TABLENAME);
     Footballer footballer = (Footballer) obj;
     footballer.setClub(rs.getString("club"));
+  }
+
+  @Override
+  protected void save(DomainObject obj) {
+    try {
+      PreparedStatement stmt = DB.prepareStatement("UPDATE footballer SET club = ? WHERE id = ?");
+      Footballer footballer = (Footballer) obj;
+      stmt.setString(1, footballer.getClub());
+      stmt.setLong(2, footballer.getId());
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 }

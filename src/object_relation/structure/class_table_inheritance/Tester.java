@@ -3,7 +3,7 @@ package object_relation.structure.class_table_inheritance;
 public class Tester {
   public static void main(String[] args) {
     PlayerMapper playerMapper = new PlayerMapper();
-    Player p1 = playerMapper.find(3);
+    Player p1 = playerMapper.find(2);
     if (p1 != null) {
       switch (p1.getType()) {
         case FootballerMapper.TYPE_CODE:
@@ -17,7 +17,12 @@ public class Tester {
           break;
       }
     }
-
     System.out.println(p1);
+
+    Cricketer c1 = (Cricketer) playerMapper.find(2);
+    c1.setBattingAverage("2.53");
+    c1.setName("jack");
+    playerMapper.update(c1);
+    System.out.println(c1);
   }
 }

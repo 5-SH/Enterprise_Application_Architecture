@@ -1,5 +1,6 @@
 package object_relation.structure.class_table_inheritance;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -25,4 +26,20 @@ public abstract class AbstractPlayerMapper extends Mapper {
     player.setType(rs.getString("type"));
   }
 
+  @Override
+  protected void update(DomainObject obj) {
+    try {
+      PreparedStatement stmt = DB.prepareStatement("UPDATE sports_player SET name = ?, type =? WHERE id = ?");
+      Player player = (Player) obj;
+      stmt.setString(1, player.getName());
+      stmt.setString(2, player.getType());
+      stmt.setLong(3, player.getId());
+      stmt.executeUpdate();
+      save(obj);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  protected abstract void save(DomainObject obj);
 }
