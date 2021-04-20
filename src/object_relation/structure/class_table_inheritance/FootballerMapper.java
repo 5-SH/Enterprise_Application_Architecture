@@ -38,4 +38,17 @@ public class FootballerMapper extends AbstractPlayerMapper {
       e.printStackTrace();
     }
   }
+
+  @Override
+  protected void addRow(DomainObject obj) {
+    try {
+      PreparedStatement stmt = DB.prepareStatement("INSERT INTO footballer VALUES (?, ?)");
+      Footballer footballer = (Footballer) obj;
+      stmt.setLong(1, footballer.getId());
+      stmt.setString(2, footballer.getClub());
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 }

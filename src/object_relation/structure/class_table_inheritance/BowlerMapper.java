@@ -38,4 +38,17 @@ public class BowlerMapper extends AbstractPlayerMapper {
       e.printStackTrace();
     }
   }
+
+  @Override
+  protected void addRow(DomainObject obj) {
+    try {
+      PreparedStatement stmt = DB.prepareStatement("INSERT INTO bowler VALUES (?, ?)");
+      Bowler bowler = (Bowler) obj;
+      stmt.setLong(1, bowler.getId());
+      stmt.setString(2, bowler.getBowlingAverage());
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 }

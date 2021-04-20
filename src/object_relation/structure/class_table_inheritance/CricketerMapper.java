@@ -38,4 +38,17 @@ public class CricketerMapper extends AbstractPlayerMapper {
       e.printStackTrace();
     }
   }
+
+  @Override
+  protected void addRow(DomainObject obj) {
+    try {
+      PreparedStatement stmt = DB.prepareStatement("INSERT INTO cricketer VALUES (?, ?)");
+      Cricketer cricketer = (Cricketer) obj;
+      stmt.setLong(1, cricketer.getId());
+      stmt.setString(2, cricketer.getBattingAverage());
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 }

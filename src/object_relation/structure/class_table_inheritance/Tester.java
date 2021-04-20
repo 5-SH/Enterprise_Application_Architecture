@@ -24,5 +24,8 @@ public class Tester {
     c1.setName("jack");
     playerMapper.update(c1);
     System.out.println(c1);
+
+    Footballer f1 = new Footballer(4, "hong", "F", "STV");
+    playerMapper.insert(f1);
   }
 }

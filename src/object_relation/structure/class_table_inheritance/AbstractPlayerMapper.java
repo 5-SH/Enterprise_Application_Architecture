@@ -42,4 +42,21 @@ public abstract class AbstractPlayerMapper extends Mapper {
   }
 
   protected abstract void save(DomainObject obj);
+
+  @Override
+  protected void insert(DomainObject obj) {
+    try {
+      PreparedStatement stmt = DB.prepareStatement("INSERT INTO sports_player VALUES (?, ?, ?)");
+      Player player = (Player) obj;
+      stmt.setLong(1, player.getId());
+      stmt.setString(2, player.getName());
+      stmt.setString(3, player.getType());
+      stmt.executeUpdate();
+      addRow(obj);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  protected abstract void addRow(DomainObject obj);
 }

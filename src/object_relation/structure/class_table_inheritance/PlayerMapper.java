@@ -57,4 +57,21 @@ protected Player find(long id) {
         break;
     }
   }
+
+  @Override
+  protected void insert(DomainObject obj) {
+    Player player = (Player) obj;
+    String type = player.getType();
+    switch (type) {
+      case BowlerMapper.TYPE_CODE:
+        bmapper.insert(obj);
+        break;
+      case CricketerMapper.TYPE_CODE:
+        cmapper.insert(obj);
+        break;
+      case FootballerMapper.TYPE_CODE:
+        fmapper.insert(obj);
+        break;
+    }
+  }
 }
