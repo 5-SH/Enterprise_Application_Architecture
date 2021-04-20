@@ -39,4 +39,6 @@ public abstract class Mapper {
 
     return rs;
   }
+
+  abstract protected void update(DomainObject obj) throws SQLException;
 }

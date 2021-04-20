@@ -1,5 +1,6 @@
 package object_relation.structure.concrete_table_inheritance;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -24,4 +25,23 @@ public abstract class AbstractPlayerMapper extends Mapper {
     player.setType(rs.getString("type"));
   }
 
+  @Override
+  protected void update(DomainObject obj) {
+    try {
+      PreparedStatement stmt = DB.prepareStatement(updateStatement());
+      stmt.setLong(4, obj.getId());
+      save(obj, stmt);
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  protected void save(DomainObject obj, PreparedStatement stmt) throws SQLException {
+    Player player = (Player) obj;
+    stmt.setString(1, player.getName());
+    stmt.setString(2, player.getType());
+  }
+
+  abstract protected String updateStatement();
 }

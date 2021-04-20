@@ -1,5 +1,6 @@
 package object_relation.structure.concrete_table_inheritance;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -22,5 +23,16 @@ public class FootballerMapper extends AbstractPlayerMapper {
     super.load(obj, rs);
     Footballer footballer = (Footballer) obj;
     footballer.setClub(rs.getString("club"));
+  }
+
+  @Override
+  protected String updateStatement() {
+    return "UPDATE concrete_footballer SET name = ?, type = ?, club = ? WHERE id = ?";
+  }
+
+  protected void save(DomainObject obj, PreparedStatement stmt) throws SQLException {
+    super.save(obj, stmt);
+    Footballer footballer = (Footballer) obj;
+    stmt.setString(3, footballer.getClub());
   }
 }

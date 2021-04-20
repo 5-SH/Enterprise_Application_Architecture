@@ -28,4 +28,21 @@ public class PlayerMapper extends Mapper {
     }
     return null;
   }
+
+  @Override
+  protected void update(DomainObject obj) {
+    Player player = (Player) obj;
+    String type = player.getType();
+    switch (type) {
+      case BowlerMapper.TYPE_CODE:
+        bmapper.update(obj);
+        break;
+      case CricketerMapper.TYPE_CODE:
+        cmapper.update(obj);
+        break;
+      case FootballerMapper.TYPE_CODE:
+        fmapper.update(obj);
+        break;
+    }
+  }
 }
