@@ -1,0 +1,28 @@
+package object_relation.metadata_mapping.metadata_mapping;
+
+import java.lang.reflect.Field;
+
+public class ColumnMap {
+  private String columnName;
+  private String fieldName;
+  private String type;
+  private Field field;
+  private DataMap dataMap;
+
+  public ColumnMap(String columnName, String fieldName, String type, DataMap dataMap) {
+    this.columnName = columnName;
+    this.fieldName = fieldName;
+    this.type = type;
+    this.dataMap = dataMap;
+    initField();
+  }
+
+  private void initField() {
+    try {
+      field = dataMap.getDomainClass().getDeclaredField(fieldName);
+      field.setAccessible(true);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+}
