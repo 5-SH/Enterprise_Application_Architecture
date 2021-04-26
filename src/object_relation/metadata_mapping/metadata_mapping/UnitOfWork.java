@@ -1,13 +1,15 @@
 package object_relation.metadata_mapping.metadata_mapping;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UnitOfWork {
   private List<DomainObject> newObjects = new ArrayList<>();
   private List<DomainObject> dirtyObjects = new ArrayList<>();
   private List<DomainObject> removedObjects = new ArrayList<>();
+  private Map<Long, DomainObject> loadedMap = new HashMap<>();
 
   private static ThreadLocal current = new ThreadLocal();
 
@@ -35,7 +37,10 @@ public class UnitOfWork {
     }
   }
 
-  public void registerClean(DomainObject obj) { assert obj.getId() == null : "id is null"; }
+  public void registerClean(DomainObject obj) {
+    assert obj.getId() == null : "id is null";
+    loadedMap.put(obj.getId(), obj);
+  }
 
   public void registerRemoved(DomainObject obj) {
     assert obj.getId() == null : "id is null";
@@ -44,6 +49,15 @@ public class UnitOfWork {
     if (!removedObjects.contains(obj)) {
       removedObjects.add(obj);
     }
+  }
+
+  public boolean isLoaded(long key) {
+    return loadedMap.containsKey(key);
+  }
+
+  public DomainObject getObject(long key) {
+    if (loadedMap.containsKey(key)) return loadedMap.get(key);
+    return null;
   }
 
   public void commit() {

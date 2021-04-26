@@ -6,7 +6,7 @@ import java.util.List;
 public class DataMap {
   private Class domainClass;
   private String tableName;
-  private List columnMaps = new ArrayList();
+  private List<ColumnMap> columnMaps = new ArrayList();
 
   public DataMap(Class domainClass, String tableName) {
     this.domainClass = domainClass;
@@ -21,4 +21,22 @@ public class DataMap {
   public Class getDomainClass() {
     return domainClass;
   }
+
+  public String columnList() {
+    StringBuffer result = new StringBuffer("ID");
+    for (ColumnMap columnMap : columnMaps) {
+      result.append(", ");
+      result.append(columnMap.getColumnName());
+    }
+    return result.toString();
+  }
+
+  public String getTableName() {
+    return tableName;
+  }
+
+  public List<ColumnMap> getColumnMaps() {
+    return columnMaps;
+  }
+
 }

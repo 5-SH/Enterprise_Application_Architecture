@@ -5,6 +5,9 @@ public class Person extends DomainObject {
   private String firstname;
   private int numberOfDependents;
 
+  public Person() {
+  }
+
   public Person(String lastname, String firstname, int numberOfDependents) {
     this.lastname = lastname;
     this.firstname = firstname;
@@ -43,5 +46,15 @@ public class Person extends DomainObject {
   public void setNumberOfDependents(int numberOfDependents) {
     this.numberOfDependents = numberOfDependents;
     markDirty();
+  }
+
+  @Override
+  public String toString() {
+    return "Person{" +
+      "id='" + super.getId() + '\'' +
+      ", lastname='" + lastname + '\'' +
+      ", firstname='" + firstname + '\'' +
+      ", numberOfDependents=" + numberOfDependents +
+      '}';
   }
 }

@@ -25,4 +25,16 @@ public class ColumnMap {
       e.printStackTrace();
     }
   }
+
+  public String getColumnName() {
+    return columnName;
+  }
+
+  public void setField(Object result, Object columnValue) {
+    try {
+      field.set(result, columnValue);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 }

@@ -1,27 +1,18 @@
 package object_relation.metadata_mapping.metadata_mapping;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PersonMapper extends Mapper {
-  DataMap dataMap;
-
   protected void loadDataMap() {
     dataMap = new DataMap(Person.class, "person");
-    dataMap.addColumn("lastname", "varchar", "lastName");
-    dataMap.addColumn("firstname", "varchar", "firstName");
+    dataMap.addColumn("lastname", "varchar", "lastname");
+    dataMap.addColumn("firstname", "varchar", "firstname");
     dataMap.addColumn("numberOfDependents", "int", "numberOfDependents");
   }
 
-  @Override
-  protected String findStatement() {
-    return null;
-  }
-
-  @Override
-  protected DomainObject doLoad(Long id, ResultSet rs) throws SQLException {
-    return null;
+  public Person find(long id) {
+      return (Person) findObject(id);
   }
 
   @Override
