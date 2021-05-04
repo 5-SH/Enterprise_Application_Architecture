@@ -1,13 +1,11 @@
 package object_relation.metadata_mapping.metadata_mapping;
 
-import java.lang.reflect.Constructor;
 import java.sql.*;
 import java.util.Properties;
 
 public abstract class Mapper {
   private Connection db;
   protected DataMap dataMap;
-//  private UnitOfWork uow;
 
   public Mapper() {
     try {
@@ -71,19 +69,19 @@ public abstract class Mapper {
   protected abstract void doInsert(DomainObject obj, PreparedStatement stmt) throws SQLException;
 
   public void update(DomainObject obj) {
+    String sql = "UPDATE " + dataMap.getTableName() + dataMap.updateList() + " WHERE id = ?";
     try {
-      PreparedStatement stmt = db.prepareStatement(updateStatement());
-      doUpdate(obj, stmt);
+      PreparedStatement stmt = db.prepareStatement(sql);
+      int argCount = 1;
+      for (ColumnMap columnMap : dataMap.getColumnMaps()) {
+        stmt.setObject(argCount++, columnMap.getValue(obj));
+      }
+      stmt.setLong(argCount, obj.getId());
       stmt.executeUpdate();
-
-//      if (!loadedMap.containsKey(obj.getId())) loadedMap.put(obj.getId(), obj);
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
-
-  protected abstract String updateStatement();
-  protected abstract void doUpdate(DomainObject obj, PreparedStatement stmt) throws SQLException;
 
   public void delete(DomainObject obj) {
     try {

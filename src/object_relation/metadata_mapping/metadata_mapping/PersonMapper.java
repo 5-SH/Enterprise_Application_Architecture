@@ -26,16 +26,6 @@ public class PersonMapper extends Mapper {
   }
 
   @Override
-  protected String updateStatement() {
-    return null;
-  }
-
-  @Override
-  protected void doUpdate(DomainObject obj, PreparedStatement stmt) throws SQLException {
-
-  }
-
-  @Override
   protected String deleteStatement() {
     return null;
   }

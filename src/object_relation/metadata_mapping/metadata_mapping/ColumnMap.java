@@ -37,4 +37,13 @@ public class ColumnMap {
       e.printStackTrace();
     }
   }
+
+  public Object getValue(Object subject) {
+    try {
+      return field.get(subject);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
 }

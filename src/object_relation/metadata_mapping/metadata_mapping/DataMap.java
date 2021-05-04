@@ -39,4 +39,14 @@ public class DataMap {
     return columnMaps;
   }
 
+  public String updateList() {
+    StringBuffer result = new StringBuffer(" SET ");
+    for (ColumnMap columnMap : columnMaps) {
+      result.append(columnMap.getColumnName());
+      result.append(" = ?,");
+    }
+    result.setLength(result.length() - 1);
+    return result.toString();
+  }
+
 }
