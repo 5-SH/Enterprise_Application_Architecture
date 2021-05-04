@@ -5,12 +5,17 @@ public class Tester {
     PersonMapper personMapper = new PersonMapper();
     personMapper.loadDataMap();
     UnitOfWork.newCurrent();
-    Person p1 = personMapper.find(1);
+    Person p1 = personMapper.find(2);
     System.out.println(p1.toString());
 
     p1.setFirstname("애린");
     p1.setLastname("주");
     p1.setNumberOfDependents(0);
     personMapper.update(p1);
+
+    Person np = new Person(4, "홍", "길동", 1000);
+    personMapper.insert(np);
+
+    personMapper.delete(p1);
   }
 }

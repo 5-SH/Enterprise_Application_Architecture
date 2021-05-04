@@ -55,18 +55,19 @@ public abstract class Mapper {
   }
 
   public void insert(DomainObject obj) {
+    String sql = "INSERT INTO " + dataMap.getTableName() + " VALUES (?" + dataMap.insertList() + ")";
     try {
-      PreparedStatement stmt = db.prepareStatement(insertStatement());
+      PreparedStatement stmt = db.prepareStatement(sql);
       stmt.setLong(1, obj.getId());
-      doInsert(obj, stmt);
+      int argCount = 2;
+      for (ColumnMap columnMap : dataMap.getColumnMaps()) {
+        stmt.setObject(argCount++, columnMap.getValue(obj));
+      }
       stmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
-
-  protected abstract String insertStatement();
-  protected abstract void doInsert(DomainObject obj, PreparedStatement stmt) throws SQLException;
 
   public void update(DomainObject obj) {
     String sql = "UPDATE " + dataMap.getTableName() + dataMap.updateList() + " WHERE id = ?";
@@ -84,14 +85,13 @@ public abstract class Mapper {
   }
 
   public void delete(DomainObject obj) {
+    String sql = "DELETE FROM " + dataMap.getTableName() + " WHERE id = ?";
     try {
-      PreparedStatement stmt = db.prepareStatement(deleteStatement());
+      PreparedStatement stmt = db.prepareStatement(sql);
       stmt.setLong(1, obj.getId());
       stmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
-
-  protected abstract String deleteStatement();
 }

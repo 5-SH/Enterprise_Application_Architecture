@@ -49,4 +49,13 @@ public class DataMap {
     return result.toString();
   }
 
+  public String insertList() {
+    StringBuffer result = new StringBuffer();
+    for (ColumnMap columnMap : columnMaps) {
+      result.append(", ");
+      result.append("?");
+    }
+    return result.toString();
+  }
+
 }
