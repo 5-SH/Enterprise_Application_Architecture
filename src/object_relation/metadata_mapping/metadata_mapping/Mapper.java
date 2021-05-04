@@ -1,10 +1,12 @@
 package object_relation.metadata_mapping.metadata_mapping;
 
 import java.sql.*;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 
 public abstract class Mapper {
-  private Connection db;
+  protected Connection db;
   protected DataMap dataMap;
 
   public Mapper() {
@@ -93,5 +95,28 @@ public abstract class Mapper {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  public Set findObjectWhere (String whereClause) {
+    String sql = "SELECT " + dataMap.columnList() + " FROM " + dataMap.getTableName() + " WHERE " + whereClause;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    Set result = null;
+    try {
+      stmt = db.prepareStatement(sql);
+      rs = stmt.executeQuery();
+      result = loadAll(rs);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+
+  public Set loadAll(ResultSet rs) throws Exception {
+    Set result = new HashSet();
+    while(rs.next()) {
+      result.add(load(rs));
+    }
+    return result;
   }
 }

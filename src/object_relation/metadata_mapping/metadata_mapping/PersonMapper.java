@@ -1,5 +1,11 @@
 package object_relation.metadata_mapping.metadata_mapping;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
+
 public class PersonMapper extends Mapper {
   protected void loadDataMap() {
     dataMap = new DataMap(Person.class, "person");
@@ -10,5 +16,19 @@ public class PersonMapper extends Mapper {
 
   public Person find(long id) {
       return (Person) findObject(id);
+  }
+
+  public Set findLastNamesLike(String pattern) {
+    String sql = "SELECT " + dataMap.columnList() + " FROM " + dataMap.getTableName() + " WHERE UPPER(lastname) like UPPER(?)";
+    Set result = null;
+    try {
+      PreparedStatement stmt = db.prepareStatement(sql);
+      stmt.setString(1, pattern);
+      ResultSet rs = stmt.executeQuery();
+      result = loadAll(rs);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return result;
   }
 }
