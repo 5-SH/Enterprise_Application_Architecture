@@ -46,4 +46,10 @@ public class ColumnMap {
     }
     return null;
   }
+
+  // QueryObject code
+
+  public String getFieldName() {
+    return fieldName;
+  }
 }

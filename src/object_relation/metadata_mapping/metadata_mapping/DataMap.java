@@ -58,4 +58,13 @@ public class DataMap {
     return result.toString();
   }
 
+  // QueryObject code
+  public String getColumnForField(String fieldName) throws Exception {
+    for (ColumnMap columnMap : columnMaps) {
+      if (columnMap.getFieldName().equals(fieldName)) {
+        return columnMap.getColumnName();
+      }
+    }
+    throw new Exception("Unalbe to find column for " + fieldName);
+  }
 }

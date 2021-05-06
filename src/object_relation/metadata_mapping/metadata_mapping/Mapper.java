@@ -119,4 +119,9 @@ public abstract class Mapper {
     }
     return result;
   }
+
+  // QueryObject code
+  public DataMap getDataMap() {
+    return dataMap;
+  }
 }

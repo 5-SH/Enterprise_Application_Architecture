@@ -2,12 +2,10 @@ package object_relation.metadata_mapping.metadata_mapping;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.Set;
 
 public class PersonMapper extends Mapper {
-  protected void loadDataMap() {
+  public void loadDataMap() {
     dataMap = new DataMap(Person.class, "person");
     dataMap.addColumn("lastname", "varchar", "lastname");
     dataMap.addColumn("firstname", "varchar", "firstname");

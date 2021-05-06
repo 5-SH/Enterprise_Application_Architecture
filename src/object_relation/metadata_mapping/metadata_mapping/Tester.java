@@ -15,8 +15,8 @@ public class Tester {
 //    p1.setNumberOfDependents(0);
 //    personMapper.update(p1);
 
-//    Person np1 = new Person(1, "홍", "길동", 1000);
-//    personMapper.insert(np1);
+    Person np1 = new Person(6, "홍", "길동", 1000);
+    personMapper.insert(np1);
 //    personMapper.delete(p1);
     Set result1 = personMapper.findObjectWhere("lastname = '배'");
     System.out.println(result1.toString());
