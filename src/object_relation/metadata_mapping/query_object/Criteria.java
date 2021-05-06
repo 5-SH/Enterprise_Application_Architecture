@@ -15,6 +15,10 @@ public class Criteria {
     return new Criteria(">", field, value);
   }
 
+  public static Criteria matches(String field, String pattern) {
+    return new MatchCriteria(field, pattern);
+  }
+
   public Criteria(String sqlOperator, String field, Object value) {
     this.sqlOperator = sqlOperator;
     this.field = field;

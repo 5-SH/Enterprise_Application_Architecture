@@ -13,9 +13,9 @@ public class Tester {
     personMapper.loadDataMap();
     MapperRegistry.setMapper(Person.class.getName(), personMapper);
 
-
     QueryObject query = new QueryObject(Person.class);
     query.addCriteria(Criteria.greaterThan("numberOfDependents", 1));
+    query.addCriteria(Criteria.matches("lastname", "Hong"));
 
     UnitOfWork.newCurrent();
     Set result = query.execute(UnitOfWork.getCurrent());
