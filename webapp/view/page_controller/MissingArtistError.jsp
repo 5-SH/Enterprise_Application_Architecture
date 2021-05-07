@@ -5,6 +5,7 @@
 <title>Missing artist error</title>
 </head>
 <body>
+<h3>Missing artist</h3>
 <%
   Calendar c = Calendar.getInstance();
   int hour = c.get(Calendar.HOUR_OF_DAY);

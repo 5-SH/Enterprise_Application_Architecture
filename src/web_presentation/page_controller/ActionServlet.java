@@ -1,4 +1,4 @@
-package web_presentation.front_controller;
+package web_presentation.page_controller;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

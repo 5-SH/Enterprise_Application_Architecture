@@ -5,11 +5,15 @@
          version="3.1">
   <servlet>
     <servlet-name>hello</servlet-name>
-    <servlet-class>web_presentation.front_controller.HelloWorldServlet</servlet-class>
+    <servlet-class>web_presentation.page_controller.HelloWorldServlet</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>artist</servlet-name>
-    <servlet-class>web_presentation.front_controller.ArtistController</servlet-class>
+    <servlet-class>web_presentation.page_controller.ArtistController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>album</servlet-name>
+    <jsp-file>/jsp/page_controller/AlbumController.jsp</jsp-file>
   </servlet>
 
   <servlet-mapping>
@@ -19,5 +23,9 @@
   <servlet-mapping>
     <servlet-name>artist</servlet-name>
     <url-pattern>/artist</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>album</servlet-name>
+    <url-pattern>/album</url-pattern>
   </servlet-mapping>
 </web-app>
