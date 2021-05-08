@@ -8,11 +8,11 @@ public class AlbumConHelper extends HelperController {
     super.init(req, resp);
     Album album = getAlbum();
     if (album == null) {
-      forward("/view/page_controller/MissingAlbumError.jsp", req, resp);
+      forward("/view/MissingAlbumError.jsp", req, resp);
     }
     else {
       req.setAttribute("helper", new AlbumHelper(album));
-      forward("/view/page_controller/album.jsp", req, resp);
+      forward("/view/album.jsp", req, resp);
     }
   }
 

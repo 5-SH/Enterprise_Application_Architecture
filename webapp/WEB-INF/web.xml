@@ -3,6 +3,8 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+  <!-- 페이지 컨트롤러 서블렛 설정 -->
+  <!--
   <servlet>
     <servlet-name>hello</servlet-name>
     <servlet-class>web_presentation.page_controller.HelloWorldServlet</servlet-class>
@@ -13,7 +15,7 @@
   </servlet>
   <servlet>
     <servlet-name>album</servlet-name>
-    <jsp-file>/jsp/page_controller/AlbumController.jsp</jsp-file>
+    <jsp-file>/jsp/controller/AlbumController.jsp</jsp-file>
   </servlet>
 
   <servlet-mapping>
@@ -27,5 +29,16 @@
   <servlet-mapping>
     <servlet-name>album</servlet-name>
     <url-pattern>/album</url-pattern>
+  </servlet-mapping>
+  -->
+
+  <!-- 프론트 컨트롤러 서블렛 설정 -->
+  <servlet>
+    <servlet-name>front</servlet-name>
+    <servlet-class>web_presentation.front_controller.FrontServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>front</servlet-name>
+    <url-pattern>/front/*</url-pattern>
   </servlet-mapping>
 </web-app>

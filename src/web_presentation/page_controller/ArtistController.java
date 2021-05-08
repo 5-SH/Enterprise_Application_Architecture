@@ -10,10 +10,10 @@ public class ArtistController extends ActionServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     Artist artist = Artist.findByName(req.getParameter("name"));
     if (artist == null) {
-      forward("/view/page_controller/MissingArtistError.jsp", req, resp);
+      forward("/view/MissingArtistError.jsp", req, resp);
     } else {
       req.setAttribute("helper", new ArtistHelper(artist));
-      forward("/view/page_controller/artist.jsp", req, resp);
+      forward("/view/artist.jsp", req, resp);
     }
   }
 }
