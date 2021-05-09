@@ -18,7 +18,7 @@
   String artistPrint = artistHelper.print();
 %>
 <%=artistPrint%>
-<br/>
+
 응답 시간 : <%=hour%>:<%=minute%>:<%=second%>
 </body>
 </html>

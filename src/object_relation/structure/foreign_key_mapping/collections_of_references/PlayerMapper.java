@@ -29,7 +29,7 @@ public class PlayerMapper extends AbstractMapper {
     PreparedStatement stmt = DB.prepareStatement("SELECT id, name, teamID FROM player WHERE teamID = ?");
     stmt.setLong(1, key);
     ResultSet rs = stmt.executeQuery();
-    while(rs.next()) {
+    while (rs.next()) {
       Long id = new Long(rs.getLong(1));
       Player player;
       if (loadedMap.containsKey(id)) {

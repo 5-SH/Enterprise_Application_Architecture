@@ -114,7 +114,7 @@ public abstract class Mapper {
 
   public Set loadAll(ResultSet rs) throws Exception {
     Set result = new HashSet();
-    while(rs.next()) {
+    while (rs.next()) {
       result.add(load(rs));
     }
     return result;

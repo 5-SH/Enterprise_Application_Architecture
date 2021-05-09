@@ -3,6 +3,8 @@ package web_presentation.page_controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Album extends DomainObject {
   private String title;
@@ -39,6 +41,22 @@ public class Album extends DomainObject {
       ResultSet rs = stmt.executeQuery();
       rs.next();
       result = load(rs);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+
+  public static List findByArtistID(Long artistID) {
+    List<Album> result = new ArrayList<Album>();
+    try {
+      String sql = "SELECT id, title, artistID FROM album WHERE artistID = ?";
+      PreparedStatement stmt = Registry.DB().prepareStatement(sql);
+      stmt.setLong(1, artistID);
+      ResultSet rs = stmt.executeQuery();
+      while (rs.next()) {
+        result.add(load(rs));
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     }

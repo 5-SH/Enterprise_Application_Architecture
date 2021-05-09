@@ -33,12 +33,22 @@
   -->
 
   <!-- 프론트 컨트롤러 서블렛 설정 -->
-  <servlet>
+  <!-- <servlet>
     <servlet-name>front</servlet-name>
     <servlet-class>web_presentation.front_controller.FrontServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>front</servlet-name>
     <url-pattern>/front/*</url-pattern>
+  </servlet-mapping> -->
+
+  <!--템플릿 뷰 서블렛 설정-->
+  <servlet>
+    <servlet-name>artist</servlet-name>
+    <servlet-class>web_presentation.templete_view.ArtistController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>artist</servlet-name>
+    <url-pattern>/templete/artist</url-pattern>
   </servlet-mapping>
 </web-app>

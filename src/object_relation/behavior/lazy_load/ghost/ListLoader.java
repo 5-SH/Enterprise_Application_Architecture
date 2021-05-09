@@ -21,7 +21,7 @@ public class ListLoader {
         stmt.setLong(i + 1, (Long) sqlParams.get(i));
       }
       ResultSet rs = stmt.executeQuery();
-      while(rs.next()) {
+      while (rs.next()) {
         TimeRecord timeRecord = new TimeRecord(rs.getLong(1));
         mapper.doLoadLine(rs, timeRecord);
         result.add(timeRecord);
