@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class ActionServlet extends HttpServlet {
   protected void forward(String target, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(target);
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(target);
     dispatcher.forward(req, resp);
   }
 }

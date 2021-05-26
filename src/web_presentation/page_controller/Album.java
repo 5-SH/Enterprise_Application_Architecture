@@ -69,4 +69,17 @@ public class Album extends DomainObject {
     Long artistID = new Long(rs.getLong(3));
     return new Album(id, title, artistID);
   }
+
+  // transform view
+  public String toSampleXmlDocument() {
+    return "<album>" +
+      "<title>Stormcock</title>" +
+      "<artist>Roy Harper</artist>" +
+      "<trackList>" +
+      "<track><title>Hors d'Oeuvres</title><time>8:37</time></track>" +
+      "<track><title>The Same Old Rock</title><time>12:24</time></track>" +
+      "<track><title>Me and My Woman</title><time>13:01</time></track>" +
+      "</trackList>" +
+      "</album>";
+  }
 }
