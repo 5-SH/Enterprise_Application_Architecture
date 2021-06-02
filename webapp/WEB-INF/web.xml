@@ -53,9 +53,19 @@
   </servlet-mapping> -->
 
   <!-- 변환 뷰의 프론트 컨트롤러 서블렛 설정 -->
-  <servlet>
+  <!-- <servlet>
     <servlet-name>front</servlet-name>
     <servlet-class>web_presentation.transform_view.FrontServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>front</servlet-name>
+    <url-pattern>/front/*</url-pattern>
+  </servlet-mapping> -->
+
+  <!-- 2단계 뷰의 프론트 컨트롤러 서블렛 설정 -->
+  <servlet>
+    <servlet-name>front</servlet-name>
+    <servlet-class>web_presentation.two_step_view.FrontServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>front</servlet-name>

@@ -82,4 +82,21 @@ public class Album extends DomainObject {
       "</trackList>" +
       "</album>";
   }
+
+  // two step view
+  public String toSampleXmlDocument2() {
+    return "<album>" +
+      "<title>Zero Hour</title>" +
+      "<artist>Astor Piazzola</artist>" +
+      "<trackList>" +
+      "<track><title>Tanguedia III</title><time>8:37</time></track>" +
+      "<track><title>Milonga del Angel</title><time>12:24</time></track>" +
+      "<track><title>Concierto Para</title><time>13:01</time></track>" +
+      "<track><title>Milonga Loca</title><time>4:39</time></track>" +
+      "<track><title>Michelangelo '70</title><time>2:50</time></track>" +
+      "<track><title>Contrabajisimo</title><time>10:18</time></track>" +
+      "<track><title>Mumuki</title><time>9:32</time></track>" +
+      "</trackList>" +
+      "</album>";
+  }
 }
