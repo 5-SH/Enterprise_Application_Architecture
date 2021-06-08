@@ -1,6 +1,5 @@
 package web_presentation.application_controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 enum AssetStatus {
@@ -10,7 +9,7 @@ enum AssetStatus {
 }
 
 public class AssetApplicationController implements ApplicationController {
-  private Map events = new HashMap();
+  private Map events = Registry.getEvents();
 
   @Override
   public DomainCommand getDomainCommand(String commandString, Map params) {
