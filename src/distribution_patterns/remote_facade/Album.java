@@ -18,6 +18,18 @@ public class Album implements Serializable {
     return title;
   }
 
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public void setArtist(Artist artist) {
+    this.artist = artist;
+  }
+
+  public Track getTrack(int idx) {
+    return (Track) tracks.get(idx);
+  }
+
   public Artist getArtist() {
     return artist;
   }
