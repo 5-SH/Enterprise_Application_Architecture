@@ -6,19 +6,19 @@
 
 ### 실행방법
 1. run rmic
-  1) open terminal
-  2) cd ...\EnterprizeApplicationArchitecture\target\classes
-  3) rmic distribution_patterns.remote_facade.RemoteServer
+  1-1. open terminal
+  1-2. cd ...\EnterprizeApplicationArchitecture\target\classes
+  1-3. rmic distribution_patterns.remote_facade.AlbumServiceBean
 2. run rmiregistry
-  1) open terminal
-  2) cd ...\EnterprizeApplicationArchitecture\target\classes
-  3) rmiregistry
-3. run RemoteClient.java
-  1) start new terminal to execute below command and cd ...\EnterprizeApplicationArchitecture\target\classes
-  2) java distribution_patterns.remote_facade.RemoteServer
-3. run GumballMonitorTestDrive.java
-  1) java distribution_patterns.remote_facade.RemoteClient 1
-  2) java distribution_patterns.remote_facade.RemoteClient 2
+  2-1. open terminal
+  2-2. cd ...\EnterprizeApplicationArchitecture\target\classes
+  2-3. rmiregistry
+3. run RemoteServer.java
+  3-1. start new terminal to execute below command and cd ...\EnterprizeApplicationArchitecture\target\classes
+  3-2. java distribution_patterns.remote_facade.RemoteServer
+4. run RemoteClient.java
+  4-1. java distribution_patterns.remote_facade.RemoteClient 1
+  4-2. java distribution_patterns.remote_facade.RemoteClient 2
 
 
 
