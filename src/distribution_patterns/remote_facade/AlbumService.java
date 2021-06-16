@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface AlbumService extends Remote {
   Map getAlbum(String id) throws RemoteException;
-  void createAlbum(String id, Album album) throws RemoteException;
+  void createAlbum(String id, Map album) throws RemoteException;
 }
