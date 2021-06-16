@@ -30,13 +30,6 @@ public class RemoteClient {
       switch (command) {
         case "getAlbum" :
           Map albumMap = albumService.getAlbum(id);
-
-          System.out.println(albumMap);
-          Map[] ts = (Map[]) albumMap.get("tracks");
-          for (int i = 0; i < ts.length; i++) {
-            System.out.println(ts[i]);
-          }
-
           AlbumDTO result = AlbumDTO.readMapReflect(albumMap);
           System.out.println(result);
           break;
@@ -88,24 +81,26 @@ public class RemoteClient {
           albumService.createAlbum(id, inputAlbumMap);
           break;
         case "updateAlbum" :
-          Album updateAlbum = new Album("update album", new Artist("jjh"));
-          Track t_2_1 = new Track("track update-1");
+          Map updateAlbumMap = new HashMap();
+          updateAlbumMap.put("artist", "jjh");
+          updateAlbumMap.put("title", "jjh update album");
 
-          t_2_1.addPerformers(new Artist("jjh"));
-          updateAlbum.addTrack(t_2_1);
+          Map track2_1 = new HashMap();
+          track2_1.put("title", "track update-1");
+          track2_1.put("performers", new String[]{"kks", "lyj", "kms", "jjh"});
 
-          Track t_2_2 = new Track("track update-2");
-          t_2_2.addPerformers(new Artist("jjh"));
-          updateAlbum.addTrack(t_2_2);
+          Map track2_2 = new HashMap();
+          track2_2.put("title", "track update-2");
+          track2_2.put("performers", new String[]{"kks", "lyj", "kms", "jjh"});
 
-          Track t_2_3 = new Track("track update-3");
-          t_2_3.addPerformers(new Artist("jjh"));
-          updateAlbum.addTrack(t_2_3);
+          Map track2_3 = new HashMap();
+          track2_3.put("title", "track update-3");
+          track2_3.put("performers", new String[]{"kks", "lyj", "kms", "jjh"});
+
+          updateAlbumMap.put("tracks", new Map[]{track2_1, track2_2, track2_3});
+          albumService.updateAlbum(id, updateAlbumMap);
           break;
-
       }
-
-
     } catch (Exception e) {
       e.printStackTrace();
     }
