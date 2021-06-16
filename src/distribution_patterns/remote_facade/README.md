@@ -17,8 +17,9 @@
   3-1. start new terminal to execute below command and cd ...\EnterprizeApplicationArchitecture\target\classes
   3-2. java distribution_patterns.remote_facade.RemoteServer
 4. run RemoteClient.java
-  4-1. java distribution_patterns.remote_facade.RemoteClient 1
-  4-2. java distribution_patterns.remote_facade.RemoteClient 2
+  4-1. java distribution_patterns.remote_facade.RemoteClient
+  4-2. 한 줄 씩 사용자 입력 받음. 커맨드 종류는 getAlbum, createAlbum, updateAlbum 이 있고
+   id 는 1, 2 를 사용
 
 
 
