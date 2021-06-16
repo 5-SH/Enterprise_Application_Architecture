@@ -14,6 +14,11 @@ public class AlbumServiceBean extends UnicastRemoteObject implements AlbumServic
   @Override
   public Map getAlbum(String id) throws RemoteException {
     return new AlbumAssembler().writeDTO(Registry.findAlbum(id)).writeMapReflect();
-//    return AlbumDTO.readMapReflect(resultMap);
+  }
+
+  @Override
+  public void createAlbum(String id, Album album) throws RemoteException {
+    AlbumAssembler assembler = new AlbumAssembler();
+    assembler.createAlbum(id, assembler.writeDTO(album));
   }
 }
