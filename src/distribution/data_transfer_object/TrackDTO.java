@@ -1,4 +1,4 @@
-package distribution_patterns.data_transfer_object;
+package distribution.data_transfer_object;
 
 import java.util.Arrays;
 import java.util.HashMap;

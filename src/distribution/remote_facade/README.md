@@ -8,16 +8,16 @@
 1. run rmic
   1-1. open terminal
   1-2. cd ...\EnterprizeApplicationArchitecture\target\classes
-  1-3. rmic distribution_patterns.remote_facade.AlbumServiceBean
+  1-3. rmic distribution.remote_facade.AlbumServiceBean
 2. run rmiregistry
   2-1. open terminal
   2-2. cd ...\EnterprizeApplicationArchitecture\target\classes
   2-3. rmiregistry
 3. run RemoteServer.java
   3-1. start new terminal to execute below command and cd ...\EnterprizeApplicationArchitecture\target\classes
-  3-2. java distribution_patterns.remote_facade.RemoteServer
+  3-2. java distribution.remote_facade.RemoteServer
 4. run RemoteClient.java
-  4-1. java distribution_patterns.remote_facade.RemoteClient
+  4-1. java distribution.remote_facade.RemoteClient
   4-2. 한 줄 씩 사용자 입력 받음. 커맨드 종류는 getAlbum, createAlbum, updateAlbum 이 있고
    id 는 1, 2 를 사용
 

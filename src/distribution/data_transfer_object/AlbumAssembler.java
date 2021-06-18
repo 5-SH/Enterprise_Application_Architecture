@@ -1,10 +1,9 @@
-package distribution_patterns.data_transfer_object;
+package distribution.data_transfer_object;
 
-import distribution_patterns.data_transfer_object.AlbumDTO;
-import distribution_patterns.remote_facade.Album;
-import distribution_patterns.remote_facade.Artist;
-import distribution_patterns.remote_facade.Registry;
-import distribution_patterns.remote_facade.Track;
+import distribution.remote_facade.Album;
+import distribution.remote_facade.Artist;
+import distribution.remote_facade.Registry;
+import distribution.remote_facade.Track;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -1,8 +1,5 @@
-package distribution_patterns.data_transfer_object;
+package distribution.data_transfer_object;
 
-import distribution_patterns.remote_facade.Track;
-
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;

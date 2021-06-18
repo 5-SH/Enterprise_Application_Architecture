@@ -1,8 +1,6 @@
-package distribution_patterns.remote_facade;
+package distribution.remote_facade;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Registry {

@@ -1,4 +1,4 @@
-package distribution_patterns.remote_facade;
+package distribution.remote_facade;
 
 import java.io.Serializable;
 

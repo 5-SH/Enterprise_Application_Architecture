@@ -1,7 +1,7 @@
-package distribution_patterns.remote_facade;
+package distribution.remote_facade;
 
-import distribution_patterns.data_transfer_object.AlbumAssembler;
-import distribution_patterns.data_transfer_object.AlbumDTO;
+import distribution.data_transfer_object.AlbumAssembler;
+import distribution.data_transfer_object.AlbumDTO;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

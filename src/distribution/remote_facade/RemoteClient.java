@@ -1,9 +1,8 @@
-package distribution_patterns.remote_facade;
+package distribution.remote_facade;
 
-import distribution_patterns.data_transfer_object.AlbumDTO;
+import distribution.data_transfer_object.AlbumDTO;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 

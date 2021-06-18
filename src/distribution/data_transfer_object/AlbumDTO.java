@@ -1,6 +1,6 @@
-package distribution_patterns.data_transfer_object;
+package distribution.data_transfer_object;
 
-import distribution_patterns.remote_facade.Artist;
+import distribution.remote_facade.Artist;
 
 import java.util.Arrays;
 
