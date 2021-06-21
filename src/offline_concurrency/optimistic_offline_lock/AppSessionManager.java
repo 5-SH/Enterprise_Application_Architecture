@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class AppSessionManager {
   private static AppSessionManager soleInstance = new AppSessionManager();
-  protected Map identityMap;
+  protected Map<Long, DomainObject> identityMap;
 
   public AppSessionManager() {
     identityMap = new HashMap();
@@ -15,5 +15,9 @@ public class AppSessionManager {
 
   public static void initialize() { soleInstance = new AppSessionManager(); }
 
-  public Map getSession() { return identityMap; }
+  public static AppSessionManager getSession() { return soleInstance; }
+
+  public Map getIdentityMap() {
+    return identityMap;
+  }
 }
