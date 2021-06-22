@@ -44,9 +44,9 @@ public abstract class AbstractMapper {
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
           obj = load(id, rs);
-          String modifiedBy = rs.getString(colmuns.length + 2);
-          Timestamp modified = rs.getTimestamp(colmuns.length + 3);
-          int version = rs.getInt(colmuns.length + 4);
+          String modifiedBy = rs.getString(colmuns.length + 3);
+          Timestamp modified = rs.getTimestamp(colmuns.length + 4);
+          int version = rs.getInt(colmuns.length + 5);
           obj.setSystemFields(modified, modifiedBy, version);
           AppSessionManager.getSession().getIdentityMap().put(id, obj);
         } else {
@@ -77,8 +77,54 @@ public abstract class AbstractMapper {
   }
 
   // insert
+  public void insert(DomainObject object) {
+    Timestamp now = new Timestamp(System.currentTimeMillis());
+    object.setSystemFields(now, "admin", 0);
+    AppSessionManager.getSession().getIdentityMap().put(object.getId(), object);
+    try {
+      PreparedStatement stmt = db.prepareStatement(insertSQL);
+      stmt.setLong(1, object.getId().longValue());
+      doInsert(object, stmt);
+      stmt.setString(3, "admin");
+      stmt.setTimestamp(4, now);
+      stmt.setString(5, object.getModifiedBy());
+      stmt.setTimestamp(6, object.getModified());
+      stmt.setInt(7, object.getVersion());
+      stmt.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+  }
+
+  abstract protected void doInsert(DomainObject object, PreparedStatement stmt) throws Exception;
 
   // update
+  public void update(DomainObject object) {
+    Timestamp now = new Timestamp(System.currentTimeMillis());
+    int curVersion = object.getVersion();
+    int newVersion = curVersion + 1;
+    try {
+      PreparedStatement stmt = db.prepareStatement(updateSQL);
+      stmt.setLong(1, object.getId().longValue());
+      doUpdate(object, stmt);
+      stmt.setString(3, "admin");
+      stmt.setTimestamp(4, now);
+      stmt.setInt(5, newVersion);
+      stmt.setInt(6, curVersion);
+      int rowCount = stmt.executeUpdate();
+      if (rowCount == 0) {
+        throwConcurrencyException(object);
+      } else {
+        object.setSystemFields(now, "admin", newVersion);
+        AppSessionManager.getSession().getIdentityMap().put(object.getId(), object);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  abstract protected void doUpdate(DomainObject object, PreparedStatement stmt) throws Exception;
 
   protected void throwConcurrencyException(DomainObject object) throws Exception {
     try {
@@ -112,7 +158,7 @@ public abstract class AbstractMapper {
 
     this.insertSQL = "INSERT INTO " + this.table + " VALUES (";
     StringBuffer buffer = new StringBuffer();
-    for (int i = 0; i < columnsLength; i++) {
+    for (int i = 0; i < columnsLength + 5; i++) {
       buffer.append("?, ");
     }
     buffer.setLength(buffer.length() - 2);
@@ -123,7 +169,11 @@ public abstract class AbstractMapper {
     for (int i = 0; i < columnsLength; i++) {
       buffer.append(this.colmuns[i] + " = ?,");
     }
-    buffer.setLength(buffer.length() - 1);
+    buffer.append("modifiedby = ?,");
+    buffer.append("modified = ?,");
+    buffer.append("VERSION = ? ");
+    buffer.append("WHERE version = ?");
+    buffer.setLength(buffer.length());
     this.updateSQL += (buffer.toString() + ";");
   }
 }
