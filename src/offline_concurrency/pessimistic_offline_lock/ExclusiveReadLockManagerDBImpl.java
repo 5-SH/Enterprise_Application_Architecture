@@ -8,10 +8,10 @@ import java.sql.SQLException;
 public class ExclusiveReadLockManagerDBImpl implements ExclusiveReadLockManager {
   public static ExclusiveReadLockManager INSTANCE = new ExclusiveReadLockManagerDBImpl();
 
-  private static final String INSERT_SQL = "INSERT INTO lock values(?, ?);";
-  private static final String DELETE_SINGLE_SQL = "DELETE FROM lock WHERE lockableid = ? and ownerid = ?";
-  private static final String DELETE_ALL_SQL = "DELETE FROM lock WHERE ownerid = ?";
-  private static final String CHECK_SQL = "SELECT lockableid FROM lock WHERE lockableid = ? and ownerid = ?";
+  private static final String INSERT_SQL = "INSERT INTO `lock` values(?, ?);";
+  private static final String DELETE_SINGLE_SQL = "DELETE FROM `lock` WHERE lockableid = ? and ownerid = ?";
+  private static final String DELETE_ALL_SQL = "DELETE FROM `lock` WHERE ownerid = ?";
+  private static final String CHECK_SQL = "SELECT lockableid FROM `lock` WHERE lockableid = ? and ownerid = ?";
 
   @Override
   public void acquireLock(Long lockable, String owner) throws Exception {

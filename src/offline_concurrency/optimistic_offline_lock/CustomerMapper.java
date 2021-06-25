@@ -10,20 +10,20 @@ public class CustomerMapper extends AbstractMapper {
   }
 
   @Override
-  protected DomainObject load(Long id, ResultSet rs) throws SQLException {
+  protected offline_concurrency.optimistic_offline_lock.DomainObject load(Long id, ResultSet rs) throws SQLException {
     String name = rs.getString(2);
-    return new Customer(id, name);
+    return new offline_concurrency.optimistic_offline_lock.Customer(id, name);
   }
 
   @Override
-  protected void doInsert(DomainObject object, PreparedStatement stmt) throws Exception {
-    Customer customer = (Customer) object;
+  protected void doInsert(offline_concurrency.optimistic_offline_lock.DomainObject object, PreparedStatement stmt) throws Exception {
+    offline_concurrency.optimistic_offline_lock.Customer customer = (offline_concurrency.optimistic_offline_lock.Customer) object;
     stmt.setString(2, customer.getName());
   }
 
   @Override
   protected void doUpdate(DomainObject object, PreparedStatement stmt) throws Exception {
-    Customer customer = (Customer) object;
+    offline_concurrency.optimistic_offline_lock.Customer customer = (Customer) object;
     stmt.setString(2, customer.getName());
   }
 }

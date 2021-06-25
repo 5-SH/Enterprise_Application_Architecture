@@ -73,12 +73,22 @@
   </servlet-mapping> -->
 
   <!-- 어플리케이션 컨트롤러 서블렛 설정 -->
-  <servlet>
+  <!-- <servlet>
     <servlet-name>front</servlet-name>
     <servlet-class>web_presentation.application_controller.FrontServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>front</servlet-name>
     <url-pattern>/front/*</url-pattern>
+  </servlet-mapping> -->
+
+  <!-- 비관적 오프라인 잠금 컨트롤러 서블렛 설정 -->
+  <servlet>
+    <servlet-name>lock</servlet-name>
+    <servlet-class>offline_concurrency.pessimistic_offline_lock.FrontServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>lock</servlet-name>
+    <url-pattern>/lock/*</url-pattern>
   </servlet-mapping>
 </web-app>

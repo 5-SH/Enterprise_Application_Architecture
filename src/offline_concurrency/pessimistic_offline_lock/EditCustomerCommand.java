@@ -8,5 +8,11 @@ public class EditCustomerCommand extends BusinessTransactionCommand {
     startNewBusinessTransaction();
     Long customerId = new Long(getReq().getParameter("customer_id"));
     ExclusiveReadLockManagerDBImpl.INSTANCE.acquireLock(customerId, AppSessionManager.getSession().getId());
+    CustomerMapper customerMapper = (CustomerMapper) MapperRegistry.getMapper("CustomerMapper");
+    Customer customer = (Customer) customerMapper.find(customerId);
+    getReq().getSession().setAttribute("customer", customer);
+
+    System.out.println("customer : " + customer.toString());
+//    forward("/editCustomer.jsp");
   }
 }
