@@ -19,5 +19,13 @@ public class AppSessionManager {
     return (Version) getIdentityMap().get(id);
   }
 
+  public void putVersion(Long id, Version version) {
+    getIdentityMap().put(id, version);
+  }
+
+  public void deleteVersion(Long id) {
+    getIdentityMap().remove(id);
+  }
+
   public String getUser() { return "admin"; }
 }

@@ -14,10 +14,40 @@ public class Version {
   private Timestamp modified;
   private boolean locked;
   private boolean isNew;
-  private static final String UPDATE_SQL = "UPDATE version SET VALUE =?, modifiedBy =?, modified = ? " + "WHERE id = ? and value = ?";
-  private static final String DELETE_SQL = "DELETE FROM version WHERE id = ? and value =?";
-  private static final String INSERT_SQL = "INSERT INTO version VALUES (?, ?, ?, ? ,?)";
-  private static final String LOAD_SQL = " SELECT id, value, modifiedBy, modified FROM version WHERE id = ?";
+
+  public void increaseValue() {
+    this.value++;
+  }
+
+  public void setLocked(boolean locked) {
+    this.locked = locked;
+  }
+
+  public boolean isNew() { return isNew; }
+
+  public void setNew(boolean aNew) {
+    isNew = aNew;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public long getValue() {
+    return value;
+  }
+
+  public String getModifiedBy() {
+    return modifiedBy;
+  }
+
+  public Timestamp getModified() {
+    return modified;
+  }
+
+  public boolean isLocked() {
+    return locked;
+  }
 
   public Version(Long id, long value, String modifiedBy, Timestamp modified) {
     this.id = id;
@@ -28,7 +58,7 @@ public class Version {
 
   public static Version find(Long id) {
     Version version = AppSessionManager.getSession().getVersion(id);
-    if (version == null) version = MapperRegistry.getMapper("CustomerMapper").load(id);
+    if (version == null) version = MapperRegistry.getMapper("BaseMapper").loadVersion(id);
     return version;
   }
 

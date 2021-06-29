@@ -9,6 +9,7 @@ public class MapperRegistry {
 
   public MapperRegistry() {
     mappers = new HashMap<>();
+    mappers.put("BaseMapper", new BaseMapper());
     mappers.put("CustomerMapper", new CustomerMapper());
   }
 

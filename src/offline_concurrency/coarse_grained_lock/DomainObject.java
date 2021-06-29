@@ -1,0 +1,20 @@
+package offline_concurrency.coarse_grained_lock;
+
+import java.sql.Timestamp;
+
+public class DomainObject {
+  private Long id;
+  private Timestamp modified;
+  private String modifiedBy;
+  private Version version;
+
+  public DomainObject(Long id) {
+    this.id = id;
+  }
+
+  public void setSystemFields(Version version, Timestamp modified, String modifiedBy) {
+    this.version = version;
+    this.modified = modified;
+    this.modifiedBy = modifiedBy;
+  }
+}
