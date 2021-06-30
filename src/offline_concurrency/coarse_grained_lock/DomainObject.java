@@ -12,6 +12,10 @@ public class DomainObject {
     this.id = id;
   }
 
+  public Version getVersion() {
+    return version;
+  }
+
   public void setSystemFields(Version version, Timestamp modified, String modifiedBy) {
     this.version = version;
     this.modified = modified;

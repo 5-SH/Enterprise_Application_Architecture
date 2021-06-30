@@ -95,9 +95,19 @@ public abstract class AbstractMapper {
         e.printStackTrace();
       }
     }
-
   }
 
+  abstract protected String insertStatement();
+
+  public void insert(DomainObject object) {
+    insertVersion(object.getVersion());
+    try {
+      PreparedStatement stmt = conn.prepareStatement(insertStatement());
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 
   private void throwConcurrencyException(Version version){
     Version currentVersion = Version.find(version.getId());
