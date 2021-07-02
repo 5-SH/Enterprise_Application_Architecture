@@ -1,0 +1,43 @@
+package offline_concurrency.coarse_grained_lock;
+
+import org.apache.tomcat.dbcp.dbcp2.SQLExceptionList;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class AddressMapper extends AbstractMapper {
+  public AddressMapper() {
+    super();
+  }
+
+  @Override
+  protected String findStatement() {
+    return null;
+  }
+
+  @Override
+  protected String insertStatement() {
+    return "INSERT INTO address (id, line1, city, state, customerid, versionid) VALUES (?, ?, ?, ?, ?, ?)";
+  }
+
+  @Override
+  protected void doInsert(DomainObject object) throws SQLException {
+    PreparedStatement stmt = conn.prepareStatement(insertStatement());
+    stmt.setLong(1, object.getId());
+    Address address = (Address) object;
+    stmt.setString(2, address.getLine1());
+    stmt.setString(3, address.getCity());
+    stmt.setString(4, address.getState());
+    stmt.setLong(5, address.getCustomer().getId());
+    stmt.setLong(6, address.getVersion().getId());
+    stmt.executeUpdate();
+  }
+
+  public void insertAddress(DomainObject object) {
+    try {
+      doInsert(object);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+}

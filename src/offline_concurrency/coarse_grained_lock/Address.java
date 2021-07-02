@@ -22,4 +22,20 @@ public class Address extends DomainObject {
   public static Address create(Customer customer, Version version, String line1, String city, String state) {
     return new Address(IdGenerator.INSTANCE.nextId(), version, customer, line1, city, state);
   }
+
+  public String getLine1() {
+    return line1;
+  }
+
+  public String getCity() {
+    return city;
+  }
+
+  public String getState() {
+    return state;
+  }
+
+  public Customer getCustomer() {
+    return customer;
+  }
 }

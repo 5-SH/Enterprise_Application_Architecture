@@ -11,6 +11,7 @@ public class MapperRegistry {
     mappers = new HashMap<>();
     mappers.put("BaseMapper", new BaseMapper());
     mappers.put("CustomerMapper", new CustomerMapper());
+    mappers.put("AddressMapper", new AddressMapper());
   }
 
   private static MapperRegistry getInstance() { return soleInstance; }

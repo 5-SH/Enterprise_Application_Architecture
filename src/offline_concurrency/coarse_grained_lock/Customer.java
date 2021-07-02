@@ -26,4 +26,12 @@ public class Customer extends DomainObject {
     addressList.add(address);
     return address;
   }
+
+  public String getName() {
+    return name;
+  }
+
+  public List getAddressList() {
+    return addressList;
+  }
 }

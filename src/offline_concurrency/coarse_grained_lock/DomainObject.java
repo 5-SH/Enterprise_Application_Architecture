@@ -12,6 +12,10 @@ public class DomainObject {
     this.id = id;
   }
 
+  public Long getId() {
+    return id;
+  }
+
   public Version getVersion() {
     return version;
   }

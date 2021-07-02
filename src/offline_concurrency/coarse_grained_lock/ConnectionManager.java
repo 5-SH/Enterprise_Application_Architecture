@@ -11,7 +11,7 @@ public class ConnectionManager {
 
   public ConnectionManager() {
     try {
-      Class.forName("com.mysql,jdbc.Driver");
+      Class.forName("com.mysql.jdbc.Driver");
       Properties props = new Properties();
       props.put("user", "root");
       props.put("password", "root");

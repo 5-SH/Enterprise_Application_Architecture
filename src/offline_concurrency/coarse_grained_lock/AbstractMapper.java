@@ -98,12 +98,11 @@ public abstract class AbstractMapper {
   }
 
   abstract protected String insertStatement();
-
+  abstract protected void doInsert(DomainObject object) throws SQLException;
   public void insert(DomainObject object) {
     insertVersion(object.getVersion());
     try {
-      PreparedStatement stmt = conn.prepareStatement(insertStatement());
-
+      doInsert(object);
     } catch (SQLException e) {
       e.printStackTrace();
     }

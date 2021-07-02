@@ -1,6 +1,5 @@
 package offline_concurrency.optimistic_offline_lock;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.text.DateFormat;
 import java.util.Properties;
