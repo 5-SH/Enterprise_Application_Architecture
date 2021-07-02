@@ -108,6 +108,17 @@ public abstract class AbstractMapper {
     }
   }
 
+  abstract protected String updateStatement();
+  abstract protected void doUpdate(DomainObject object) throws SQLException;
+  public void update(DomainObject object) {
+    incrementVersion(object.getVersion());
+    try {
+      doUpdate(object);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
   private void throwConcurrencyException(Version version){
     Version currentVersion = Version.find(version.getId());
     try {

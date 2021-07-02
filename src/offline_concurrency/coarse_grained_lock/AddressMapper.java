@@ -40,4 +40,29 @@ public class AddressMapper extends AbstractMapper {
       e.printStackTrace();
     }
   }
+
+  @Override
+  protected String updateStatement() {
+    return "UPDATE Address SET line1 = ?, city = ?, state = ? WHERE id = ? AND versionid = ?";
+  }
+
+  @Override
+  protected void doUpdate(DomainObject object) throws SQLException {
+    PreparedStatement stmt = conn.prepareStatement(updateStatement());
+    Address address = (Address) object;
+    stmt.setString(1, address.getLine1());
+    stmt.setString(2, address.getCity());
+    stmt.setString(3, address.getState());
+    stmt.setLong(4, address.getId());
+    stmt.setLong(5, address.getVersion().getId());
+    stmt.executeUpdate();
+  }
+
+  public void updateAddress(DomainObject object) {
+    try {
+      doUpdate(object);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 }

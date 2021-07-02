@@ -31,6 +31,10 @@ public class Customer extends DomainObject {
     return name;
   }
 
+  public void setName(String name) {
+    this.name = name;
+  }
+
   public List getAddressList() {
     return addressList;
   }

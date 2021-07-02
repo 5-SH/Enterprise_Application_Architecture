@@ -38,4 +38,17 @@ public class Address extends DomainObject {
   public Customer getCustomer() {
     return customer;
   }
+
+  public void setLine1(String line1) {
+    this.line1 = line1;
+  }
+
+  public void setCity(String city) {
+    this.city = city;
+  }
+
+  public void setState(String state) {
+    this.state = state;
+  }
+
 }

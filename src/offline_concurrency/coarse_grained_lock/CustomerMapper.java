@@ -40,4 +40,29 @@ public class CustomerMapper extends AbstractMapper {
       addressMapper.insertAddress(address);
     }
   }
+
+  @Override
+  protected String updateStatement() {
+    return "UPDATE customer2 SET name = ? WHERE id = ? and versionid = ?";
+  }
+
+  @Override
+  protected void doUpdate(DomainObject object) throws SQLException {
+    PreparedStatement stmt = conn.prepareStatement(updateStatement());
+    Customer customer = (Customer) object;
+    stmt.setString(1, customer.getName());
+    stmt.setLong(2, customer.getId());
+    stmt.setLong(3, customer.getVersion().getId());
+    stmt.executeUpdate();
+
+    updateAddress(customer);
+  }
+
+  private void updateAddress(Customer customer) throws SQLException {
+    List<Address> addressList = customer.getAddressList();
+    for (Address address : addressList) {
+      AddressMapper addressMapper = (AddressMapper) MapperRegistry.getMapper("AddressMapper");
+      addressMapper.updateAddress(address);
+    }
+  }
 }

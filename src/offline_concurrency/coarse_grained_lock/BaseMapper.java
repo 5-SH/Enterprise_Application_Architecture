@@ -32,4 +32,23 @@ public class BaseMapper extends AbstractMapper {
       e.printStackTrace();
     }
   }
+
+  @Override
+  protected String updateStatement() {
+    try {
+      throw new Exception("NOT USED METHOD");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  @Override
+  protected void doUpdate(DomainObject object) throws SQLException {
+    try {
+      throw new Exception("NOT USED METHOD");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 }
