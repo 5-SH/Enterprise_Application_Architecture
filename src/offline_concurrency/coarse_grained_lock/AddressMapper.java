@@ -65,4 +65,24 @@ public class AddressMapper extends AbstractMapper {
       e.printStackTrace();
     }
   }
+
+  @Override
+  protected String deleteStatement() {
+    return "DELETE FROM address WHERE id = ?";
+  }
+
+  @Override
+  protected void doDelete(DomainObject object) throws SQLException {
+    PreparedStatement stmt = conn.prepareStatement(deleteStatement());
+    stmt.setLong(1, object.getId());
+    stmt.executeUpdate();
+  }
+
+  public void deleteAddress(DomainObject object) {
+    try {
+      doDelete(object);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 }

@@ -119,6 +119,17 @@ public abstract class AbstractMapper {
     }
   }
 
+  abstract protected String deleteStatement();
+  abstract protected void doDelete(DomainObject object) throws SQLException;
+  public void delete(DomainObject object) {
+    deleteVersion(object.getVersion());
+    try {
+      doDelete(object);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
   private void throwConcurrencyException(Version version){
     Version currentVersion = Version.find(version.getId());
     try {

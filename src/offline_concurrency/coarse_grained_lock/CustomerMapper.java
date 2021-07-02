@@ -65,4 +65,27 @@ public class CustomerMapper extends AbstractMapper {
       addressMapper.updateAddress(address);
     }
   }
+
+  @Override
+  protected String deleteStatement() {
+    return "DELETE FROM customer2 WHERE id = ?";
+  }
+
+  @Override
+  protected void doDelete(DomainObject object) throws SQLException {
+    PreparedStatement stmt = conn.prepareStatement(deleteStatement());
+    Customer customer = (Customer) object;
+    stmt.setLong(1, customer.getId());
+    stmt.executeUpdate();
+
+    deleteAddress(customer);
+  }
+
+  private void deleteAddress(Customer customer) {
+    List<Address> addressList = customer.getAddressList();
+    for (Address address : addressList) {
+      AddressMapper addressMapper = (AddressMapper) MapperRegistry.getMapper("AddressMapper");
+      addressMapper.deleteAddress(address);
+    }
+  }
 }

@@ -15,5 +15,7 @@ public class Tester {
     addr1.setLine1("장승배기");
 
     MapperRegistry.getMapper("CustomerMapper").update(c1);
+
+    MapperRegistry.getMapper("CustomerMapper").delete(c1);
   }
 }
