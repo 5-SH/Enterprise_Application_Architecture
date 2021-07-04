@@ -83,9 +83,19 @@
   </servlet-mapping> -->
 
   <!-- 비관적 오프라인 잠금 컨트롤러 서블렛 설정 -->
-  <servlet>
+  <!-- <servlet>
     <servlet-name>lock</servlet-name>
     <servlet-class>offline_concurrency.pessimistic_offline_lock.FrontServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>lock</servlet-name>
+    <url-pattern>/lock/*</url-pattern>
+  </servlet-mapping> -->
+
+  <!-- 공유된 비관적 오프라인 잠금 컨트롤러 서블렛 설정 -->
+  <servlet>
+    <servlet-name>lock</servlet-name>
+    <servlet-class>offline_concurrency.coarse_grained_lock.pessimistic.FrontServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>lock</servlet-name>

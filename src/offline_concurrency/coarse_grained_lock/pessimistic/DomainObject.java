@@ -1,4 +1,4 @@
-package offline_concurrency.coarse_grained_lock;
+package offline_concurrency.coarse_grained_lock.pessimistic;
 
 import java.sql.Timestamp;
 

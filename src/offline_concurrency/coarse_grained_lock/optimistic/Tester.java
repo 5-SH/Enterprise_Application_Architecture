@@ -1,4 +1,4 @@
-package offline_concurrency.coarse_grained_lock;
+package offline_concurrency.coarse_grained_lock.optimistic;
 
 public class Tester {
   public static void main(String[] args) {

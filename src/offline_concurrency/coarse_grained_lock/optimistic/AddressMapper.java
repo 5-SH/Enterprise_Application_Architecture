@@ -1,6 +1,4 @@
-package offline_concurrency.coarse_grained_lock;
-
-import org.apache.tomcat.dbcp.dbcp2.SQLExceptionList;
+package offline_concurrency.coarse_grained_lock.optimistic;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

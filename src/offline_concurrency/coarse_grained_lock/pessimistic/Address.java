@@ -1,4 +1,4 @@
-package offline_concurrency.coarse_grained_lock;
+package offline_concurrency.coarse_grained_lock.pessimistic;
 
 import basic.plugin.IdGenerator;
 
@@ -9,6 +9,13 @@ public class Address extends DomainObject {
   private String city;
   private String state;
   private Customer customer;
+
+  public Address(Long id, String line1, String city, String state) {
+    super(id);
+    this.line1 = line1;
+    this.city = city;
+    this.state = state;
+  }
 
   private Address(Long id, Version version, Customer customer, String line1, String city, String state) {
     super(id);
@@ -51,4 +58,7 @@ public class Address extends DomainObject {
     this.state = state;
   }
 
+  public void setCustomer(Customer customer) {
+    this.customer = customer;
+  }
 }

@@ -1,10 +1,7 @@
-package offline_concurrency.coarse_grained_lock;
+package offline_concurrency.coarse_grained_lock.pessimistic;
 
 import basic.plugin.IdGenerator;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.Timestamp;
 
 public class Version {
@@ -56,15 +53,27 @@ public class Version {
     this.modified = modified;
   }
 
-  public static Version find(Long id) {
-    Version version = AppSessionManager.getSession().getVersion(id);
-    if (version == null) version = MapperRegistry.getMapper("BaseMapper").loadVersion(id);
-    return version;
-  }
+//  public static Version find(Long id) {
+//    Version version = AppSessionManager.getSession().getVersion(id);
+//    if (version == null) version = MapperRegistry.getMapper("BaseMapper").loadVersion(id);
+//    return version;
+//  }
 
   public static Version create() {
     Version version = new Version(IdGenerator.INSTANCE.nextId(), 0, AppSessionManager.getSession().getUser(), new Timestamp(System.currentTimeMillis()));
     version.isNew = true;
     return version;
+  }
+
+  @Override
+  public String toString() {
+    return "Version{" +
+      "id=" + id +
+      ", value=" + value +
+      ", modifiedBy='" + modifiedBy + '\'' +
+      ", modified=" + modified +
+      ", locked=" + locked +
+      ", isNew=" + isNew +
+      '}';
   }
 }

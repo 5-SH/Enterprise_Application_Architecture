@@ -1,6 +1,5 @@
-package offline_concurrency.coarse_grained_lock;
+package offline_concurrency.coarse_grained_lock.optimistic;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class BaseMapper extends AbstractMapper {
