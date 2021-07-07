@@ -33,7 +33,9 @@ public class CustomerMapper extends Mapper {
 
   @Override
   protected void doUpdate(DomainObject obj, PreparedStatement stmt) throws SQLException {
-
+    Customer customer = (Customer) obj;
+    stmt.setString(1, customer.getName());
+    stmt.setLong(2, obj.getId());
   }
 
   @Override

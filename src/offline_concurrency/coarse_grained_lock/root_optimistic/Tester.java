@@ -19,7 +19,9 @@ public class Tester {
     addr2[2] = "부산시";
     addressList.add(addr2);
 
-    EditCustomerScript.createCustomerByNameAndAddressList("승호", addressList);
+    Customer newCustomer = EditCustomerScript.createCustomerByNameAndAddressList("승호", addressList);
+    EditCustomerScript.updateCustomerName(newCustomer, "수정된 승호의 이름");
+
 
   }
 }

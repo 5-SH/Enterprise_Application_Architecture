@@ -61,7 +61,6 @@ public abstract class Mapper {
 
   public void update(DomainObject obj) throws SQLException {
     PreparedStatement stmt = db.prepareStatement(updateStatement());
-    stmt.setLong(2, obj.getId());
     doUpdate(obj, stmt);
     stmt.executeUpdate();
     if (!loadedMap.containsKey(obj.getId())) loadedMap.put(obj.getId(), obj);
