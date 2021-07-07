@@ -1,6 +1,6 @@
 package offline_concurrency.coarse_grained_lock.pessimistic;
 
-public class LoadCustomerCommand extends BusinessTransactionCommand {
+public class EditCustomerCommand extends BusinessTransactionCommand {
   @Override
   public void process() throws Exception {
     startNewBusinessTransaction();
@@ -13,7 +13,5 @@ public class LoadCustomerCommand extends BusinessTransactionCommand {
     getReq().getSession().setAttribute("customer", customer);
 
     System.out.println("customer : " + customer.toString());
-
-    ExclusiveReadLockManagerDBImpl.INSTANCE.releaseLock(customer, AppSessionManager.getSession().getId());
   }
 }

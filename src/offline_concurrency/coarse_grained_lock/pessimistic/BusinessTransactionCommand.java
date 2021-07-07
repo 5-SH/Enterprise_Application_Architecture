@@ -22,7 +22,7 @@ public abstract class BusinessTransactionCommand implements Command {
     HttpSession httpSession = getReq().getSession(true);
     AppSession appSession = (AppSession) httpSession.getAttribute(APP_SESSION);
     if (appSession != null) {
-//      ExclusiveReadLockManagerDBImpl.INSTANCE.releaseAllLocks(appSession.getId());
+      ExclusiveReadLockManagerDBImpl.INSTANCE.releaseAllLocks(appSession.getId());
     }
     appSession = new AppSession(getReq().getRemoteUser(), httpSession.getId(), new IdentityHashMap());
     AppSessionManager.setSession(appSession);

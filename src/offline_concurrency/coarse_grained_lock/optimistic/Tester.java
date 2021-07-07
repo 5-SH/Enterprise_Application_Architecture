@@ -8,14 +8,14 @@ public class Tester {
 
     MapperRegistry.getMapper("CustomerMapper").insert(c1);
 
-    c1.setName("수정된승호");
-    Address addr1 = (Address) c1.getAddressList().get(0);
-    addr1.setState("서울시");
-    addr1.setCity("동작구");
-    addr1.setLine1("장승배기");
+//    c1.setName("수정된승호");
+//    Address addr1 = (Address) c1.getAddressList().get(0);
+//    addr1.setState("서울시");
+//    addr1.setCity("동작구");
+//    addr1.setLine1("장승배기");
+//
+//    MapperRegistry.getMapper("CustomerMapper").update(c1);
 
-    MapperRegistry.getMapper("CustomerMapper").update(c1);
-
-    MapperRegistry.getMapper("CustomerMapper").delete(c1);
+//    MapperRegistry.getMapper("CustomerMapper").delete(c1);
   }
 }

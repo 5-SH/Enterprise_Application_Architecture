@@ -61,4 +61,21 @@ public class Address extends DomainObject {
   public void setCustomer(Customer customer) {
     this.customer = customer;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+    Address addr = (Address) obj;
+    return getId() == addr.getId();
+  }
+
+  @Override
+  public String toString() {
+    return "Address{" +
+      "line1='" + line1 + '\'' +
+      ", city='" + city + '\'' +
+      ", state='" + state +
+      '}';
+  }
 }

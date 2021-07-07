@@ -9,7 +9,7 @@ public abstract class AbstractMapper {
   protected Map loadedMap = new HashMap();
   protected Connection conn;
 
-  private static final String UPDATE_SQL = "UPDATE version SET VALUE =?, modifiedBy =?, modified = ? " + "WHERE id = ? and value = ?";
+  private static final String UPDATE_SQL = "UPDATE version SET value =?, modifiedBy =?, modified = ? " + "WHERE id = ? and value = ?";
   private static final String DELETE_SQL = "DELETE FROM version WHERE id = ? and value =?";
   private static final String INSERT_SQL = "INSERT INTO version VALUES (?, ?, ?, ?)";
   private static final String LOAD_SQL = " SELECT id, value, modifiedBy, modified FROM version WHERE id = ?";
@@ -123,7 +123,6 @@ public abstract class AbstractMapper {
   abstract protected void doDelete(DomainObject object) throws SQLException;
   public void delete(DomainObject object) {
     incrementVersion(object.getVersion());
-
     try {
       doDelete(object);
     } catch (SQLException e) {

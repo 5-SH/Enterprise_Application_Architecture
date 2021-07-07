@@ -12,7 +12,10 @@ public class CustomerMapper extends AbstractMapper {
     List<Address> addressList = addressMapper.findByCustomerId(customer.getId());
     for (Address address : addressList) {
       address.setCustomer(customer);
-      customer.getAddressList().add(address);
+
+      if (!customer.getAddressList().contains(address)) {
+        customer.getAddressList().add(address);
+      }
     }
     return customer;
   }
@@ -27,6 +30,7 @@ public class CustomerMapper extends AbstractMapper {
   }
 
   public void update(Customer customer) {
+    ExclusiveReadLockManagerDBImpl.INSTANCE.increaseLock(customer, AppSessionManager.getSession().getId());
     abstractUpdate(customer);
   }
 
