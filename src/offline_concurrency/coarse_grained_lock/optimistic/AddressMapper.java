@@ -76,11 +76,4 @@ public class AddressMapper extends AbstractMapper {
     stmt.executeUpdate();
   }
 
-  public void deleteAddress(DomainObject object) {
-    try {
-      doDelete(object);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
 }

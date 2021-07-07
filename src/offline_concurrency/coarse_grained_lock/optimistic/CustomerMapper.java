@@ -77,13 +77,15 @@ public class CustomerMapper extends AbstractMapper {
     stmt.executeUpdate();
 
     deleteAddress(customer);
+
+    deleteVersion(object.getVersion());
   }
 
   private void deleteAddress(Customer customer) {
     List<Address> addressList = customer.getAddressList();
     for (Address address : addressList) {
       AddressMapper addressMapper = (AddressMapper) MapperRegistry.getMapper("AddressMapper");
-      addressMapper.deleteAddress(address);
+      addressMapper.delete(address);
     }
   }
 }
