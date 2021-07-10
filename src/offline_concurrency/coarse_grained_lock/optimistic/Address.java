@@ -10,6 +10,14 @@ public class Address extends DomainObject {
   private String state;
   private Customer customer;
 
+  public Address(Long id, Version version, String line1, String city, String state) {
+    super(id);
+    setSystemFields(version, new Timestamp(System.currentTimeMillis()), "admin");
+    this.line1 = line1;
+    this.city = city;
+    this.state = state;
+  }
+
   private Address(Long id, Version version, Customer customer, String line1, String city, String state) {
     super(id);
     setSystemFields(version, new Timestamp(System.currentTimeMillis()), "admin");
@@ -51,4 +59,16 @@ public class Address extends DomainObject {
     this.state = state;
   }
 
+  public void setCustomer(Customer customer) {
+    this.customer = customer;
+  }
+
+  @Override
+  public String toString() {
+    return "Address{" +
+      "line1='" + line1 + '\'' +
+      ", city='" + city + '\'' +
+      ", state='" + state +
+      '}';
+  }
 }

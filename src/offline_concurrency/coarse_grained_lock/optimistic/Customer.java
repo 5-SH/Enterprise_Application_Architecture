@@ -10,6 +10,12 @@ public class Customer extends DomainObject {
   private String name;
   private List addressList;
 
+  public Customer(Long id, Version version, String name) {
+    super(id);
+    setSystemFields(version, new Timestamp(System.currentTimeMillis()), "admin");
+    this.name = name;
+  }
+
   private Customer(Long id, Version version, String name, List addressList) {
     super(id);
     setSystemFields(version, new Timestamp(System.currentTimeMillis()), "admin");
@@ -37,5 +43,17 @@ public class Customer extends DomainObject {
 
   public List getAddressList() {
     return addressList;
+  }
+
+  public void setAddressList(List addressList) {
+    this.addressList = addressList;
+  }
+
+  @Override
+  public String toString() {
+    return "Customer{" +
+      "name='" + name + '\'' +
+      ", addressList=" + addressList +
+      '}';
   }
 }

@@ -1,6 +1,7 @@
 package offline_concurrency.coarse_grained_lock.optimistic;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,7 +12,27 @@ public class CustomerMapper extends AbstractMapper {
 
   @Override
   protected String findStatement() {
-    return null;
+    return "SELECT ID, name, versionid FROM customer2 WHERE ID = ?";
+  }
+
+  @Override
+  protected DomainObject doFind(Long id) throws SQLException {
+    PreparedStatement stmt = conn.prepareStatement(findStatement());
+    stmt.setLong(1, id);
+    ResultSet rs = stmt.executeQuery();
+
+    rs.next();
+    Long customerId = rs.getLong(1);
+    String name = rs.getString(2);
+    Long versionId = rs.getLong(3);
+
+    Customer customer = new Customer(customerId, Version.find(versionId), name);
+
+    AddressMapper addressMapper = (AddressMapper) MapperRegistry.getMapper("AddressMapper");
+    List<Address> addressList = addressMapper.findAddressByCustomerId(customerId, customer);
+    customer.setAddressList(addressList);
+
+    return customer;
   }
 
   @Override
@@ -77,8 +98,6 @@ public class CustomerMapper extends AbstractMapper {
     stmt.executeUpdate();
 
     deleteAddress(customer);
-
-    deleteVersion(object.getVersion());
   }
 
   private void deleteAddress(Customer customer) {

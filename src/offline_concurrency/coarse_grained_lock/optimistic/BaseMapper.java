@@ -14,6 +14,16 @@ public class BaseMapper extends AbstractMapper {
   }
 
   @Override
+  protected DomainObject doFind(Long id) throws SQLException {
+    try {
+      throw new Exception("NOT USED METHOD");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  @Override
   protected String insertStatement() {
     try {
       throw new Exception("NOT USED METHOD");

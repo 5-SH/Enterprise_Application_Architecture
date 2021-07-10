@@ -18,8 +18,6 @@ public abstract class AbstractMapper {
     this.conn = ConnectionManager.getConnection();
   }
 
-  abstract protected String findStatement();
-
   protected Version loadVersion(Long id) {
     Version version = null;
     try {
@@ -97,6 +95,18 @@ public abstract class AbstractMapper {
     }
   }
 
+  abstract protected String findStatement();
+  abstract protected DomainObject doFind(Long id) throws SQLException;
+  public DomainObject find(Long id) {
+    DomainObject object = null;
+    try {
+      object = doFind(id);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return object;
+  }
+
   abstract protected String insertStatement();
   abstract protected void doInsert(DomainObject object) throws SQLException;
   public void insert(DomainObject object) {
@@ -128,6 +138,7 @@ public abstract class AbstractMapper {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    deleteVersion(object.getVersion());
   }
 
   private void throwConcurrencyException(Version version){

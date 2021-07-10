@@ -1,7 +1,10 @@
 package offline_concurrency.coarse_grained_lock.optimistic;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddressMapper extends AbstractMapper {
   public AddressMapper() {
@@ -10,7 +13,23 @@ public class AddressMapper extends AbstractMapper {
 
   @Override
   protected String findStatement() {
-    return null;
+    return "SELECT id, line1, city, state, cutomerid, versionId FROM address WHERE id = ?";
+  }
+
+  @Override
+  protected DomainObject doFind(Long id) throws SQLException {
+    PreparedStatement stmt = conn.prepareStatement(findStatement());
+    stmt.setLong(1, id);
+    ResultSet rs = stmt.executeQuery();
+
+    Long addressId = rs.getLong(1);
+    String line1 = rs.getString(2);
+    String city = rs.getString(3);
+    String state = rs.getString(4);
+    Long customerId = rs.getLong(5);
+    Long versionId = rs.getLong(6);
+
+    return new Address(addressId, Version.find(versionId), line1, city, state);
   }
 
   @Override
@@ -76,4 +95,24 @@ public class AddressMapper extends AbstractMapper {
     stmt.executeUpdate();
   }
 
+  public List findAddressByCustomerId(Long cutomerId, Customer customer) throws SQLException {
+    PreparedStatement stmt = conn.prepareStatement("SELECT id, line1, city, state, versionId FROM address WHERE customerid = ?");
+    stmt.setLong(1, cutomerId);
+    ResultSet rs = stmt.executeQuery();
+
+    List<Address> addressList = new ArrayList<Address>();
+    while(rs.next()) {
+      Long addressId = rs.getLong(1);
+      String line1 = rs.getString(2);
+      String city = rs.getString(3);
+      String state = rs.getString(4);
+      Long versionId = rs.getLong(5);
+
+      Address addr = new Address(addressId, Version.find(versionId), line1, city, state);
+      addr.setCustomer(customer);
+      addressList.add(addr);
+    }
+
+    return addressList;
+  }
 }
