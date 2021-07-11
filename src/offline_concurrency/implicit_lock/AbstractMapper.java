@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-abstract public class AbstractMapper {
+abstract public class AbstractMapper implements Mapper {
   protected Map loadedMap = new HashMap();
   protected Connection conn;
 

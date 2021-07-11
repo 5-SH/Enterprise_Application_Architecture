@@ -8,6 +8,7 @@ public class CustomerMapper extends AbstractMapper {
   public Customer find(Long id) {
     return (Customer) abstractFind(id);
   }
+
   @Override
   protected String findStatement() {
     return "SELECT * FROM customer WHERE id=?";
@@ -18,7 +19,8 @@ public class CustomerMapper extends AbstractMapper {
     return new Customer(id, rs.getString("name"));
   }
 
-  public void update(Customer customer) {
+  public void update(DomainObject obj) {
+    Customer customer = (Customer) obj;
     abstractUpdate(customer);
   }
 
@@ -33,4 +35,17 @@ public class CustomerMapper extends AbstractMapper {
     stmt.setString(1, customer.getName());
     stmt.setLong(2, customer.getId());
   }
+
+  @Override
+  public void insert(DomainObject obj) {
+
+  }
+
+  @Override
+  public void delete(DomainObject obj) {
+
+  }
 }
+
+
+

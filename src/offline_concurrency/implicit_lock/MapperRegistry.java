@@ -6,18 +6,18 @@ import java.util.Map;
 
 public class MapperRegistry {
   private static MapperRegistry soleInstance = new MapperRegistry();
-  protected Map<String, AbstractMapper> mappers;
+  protected Map<String, Mapper> mappers;
 
   public MapperRegistry() {
-    mappers = new HashMap<String, AbstractMapper>();
-    mappers.put("CustomerMapper", new CustomerMapper());
+    mappers = new HashMap<String, Mapper>();
+    mappers.put("CustomerMapper", new LockingMapper(new CustomerMapper()));
   }
 
   private static MapperRegistry getInstance() { return soleInstance; }
 
   public static void initialize() { soleInstance = new MapperRegistry(); }
 
-  public static AbstractMapper getMapper(String name) {
+  public static Mapper getMapper(String name) {
     return getInstance().mappers.get(name);
   }
 }
